@@ -438,11 +438,11 @@
 }
 
 .news-cards-row {
-    margin: 0 -3px;
+    margin: 0 -5px;
 }
 
 .news-card-col {
-    padding: 0 3px;
+    padding: 0 5px;
 }
 
 .news-card {
@@ -679,7 +679,7 @@
     max-width: 320px;
 }
 
-/* Social icons - PERBAIKAN: tambahkan display flex untuk parent */
+/* Social icons */
 .footer-social {
     display: flex;
     gap: 15px;
@@ -710,42 +710,23 @@
     opacity: 0.9;
 }
 
-/* Link sections */
+/* Link sections - SESUAI PNG */
 .footer-links {
-    margin-top: -2px;
-    padding-left: 100px;
+    margin-top: 0;
+    padding-left: 80px; /* Dikurangi dari 100px */
 }
 
 .footer-title {
     font-family: Arial, sans-serif;
-    font-size: 24px; /* Smaller */
+    font-size: 24px; /* Dikurangi dari 24px */
     font-weight: 700;
     color: #fff;
-    margin-bottom: 15px;
+    margin-bottom: 18px; /* Ditambah dari 15px */
+    white-space: nowrap; /* Mencegah turun ke bawah */
+    line-height: 1.1;
 }
 
-.footer-menu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.footer-menu li {
-    margin-bottom: 8px;
-}
-
-.footer-menu li a {
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    color: #bbb;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.footer-menu li a:hover {
-    color: #fff;
-}
-
+/* Menu links - SESUAI PNG */
 .footer-menu-links {
     list-style: none;
     padding: 0;
@@ -753,21 +734,23 @@
 }
 
 .footer-menu-links li {
-    margin-bottom: 13px;
+    margin-bottom: 12px; /* Disamakan dengan gambar */
 }
 
 .footer-menu-links li a {
     font-family: Arial, sans-serif;
-    font-size: 16px;
-    color: #fff;
+    font-size: 15px; /* Disamakan dengan PNG */
+    color: #bbb; /* #bbb bukan #fff */
     text-decoration: none;
     transition: color 0.3s;
+    line-height: 1.4;
 }
 
 .footer-menu-links li a:hover {
-    color: #bbb;
+    color: #fff;
 }
 
+/* Menu privacy - sama dengan links */
 .footer-menu-priv {
     list-style: none;
     padding: 0;
@@ -775,25 +758,26 @@
 }
 
 .footer-menu-priv li {
-    margin-bottom: 13px;
+    margin-bottom: 12px; /* Disamakan dengan gambar */
 }
 
 .footer-menu-priv li a {
     font-family: Arial, sans-serif;
-    font-size: 16px;
-    color: #fff;
+    font-size: 15px; /* Disamakan dengan PNG */
+    color: #bbb; /* #bbb bukan #fff */
     text-decoration: none;
     transition: color 0.3s;
+    line-height: 1.4;
 }
 
 .footer-menu-priv li a:hover {
-    color: #bbb;
+    color: #fff;
 }
 
-/* Contact section adjustments */
+/* Contact section - SESUAI PNG */
 .footer-contact {
-    margin-top: -2px;
-    padding-left: 50px;
+    margin-top: 0;
+    padding-left: 30px; /* Dikurangi dari 50px */
 }
 
 .footer-contact-list {
@@ -804,29 +788,32 @@
 
 .footer-contact-list li {
     display: flex;
-    align-items: center; /* Center align icons with text */
-    margin-bottom: 12px; /* Adjusted spacing */
+    align-items: flex-start; /* align-items: flex-start bukan center */
+    margin-bottom: 14px; /* Ditambah dari 12px */
     font-family: Arial, sans-serif;
-    font-size: 14px; /* Smaller text */
-    color: #fff;
-
+    font-size: 15px; /* Ditambah dari 14px */
+    color: #bbb; /* #bbb bukan #fff */
+    line-height: 1.4;
 }
+
 .footer-contact-list li i {
-    margin-right: 12px;
-    font-size: 14px; /* Smaller icons */
-    color: #fff; /* White icons */
-    min-width: 16px; /* Ensure consistent spacing */
+    margin-right: 10px; /* Dikurangi dari 12px */
+    font-size: 15px;
+    color: #fff;
+    min-width: 16px;
+    margin-top: 2px; /* Untuk alignment yang tepat */
 }
 
-/* Copyright */
+/* Copyright - SESUAI PNG */
 .footer-copyright {
     font-family: Arial, sans-serif;
-    font-size: 13px;
-    color: #999;
+    font-size: 12px; /* Dikurangi dari 13px */
+    color: #888; /* #888 bukan #999 */
     text-align: center;
-    margin: 40px 0 0 0; /* Adjusted margin */
-    padding-top: 20px;
-    border-top: 1px solid #333; /* Add top border */
+    margin: 50px 0 0 0; /* Ditambah dari 40px */
+    padding-top: 25px; /* Ditambah dari 20px */
+    border-top: 1px solid #444; /* #444 bukan #333 */
+    letter-spacing: 0.3px;
 }
 
 /* Responsive adjustments */
@@ -840,7 +827,437 @@
         font-size: 20px;
     }
     
+    .footer-links,
+    .footer-contact {
+        padding-left: 20px !important;
+    }
+    
     .col-md-2, .col-md-4 {
         margin-bottom: 30px;
     }
+}
+
+/* Additional alignment untuk semua judul sejajar */
+@media (min-width: 768px) {
+    .col-md-2, .col-md-4 {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    /* Pastikan semua judul mulai dari posisi yang sama */
+    .footer-links, .footer-contact {
+        padding-top: 0;
+    }
+    
+    /* Untuk fine-tuning alignment horizontal */
+    .footer-title {
+        padding-left: 0;
+        transform: translateX(0);
+    }
+}
+
+/* News Page Styles */
+.featured-news-section {
+    background: #f5f5f5;
+    padding: 120px 0;
+}
+
+.featured-news-section .container {
+    padding-top: 20px;
+}
+
+.featured-image img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.featured-content {
+    padding-left: 20px;
+}
+
+.featured-content h2 {
+    font-family: Arial, sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 30px;
+    line-height: 1.3;
+}
+
+.featured-content p {
+    font-family: Arial, sans-serif;
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.featured-content .btn {
+    background: #000;
+    color: #fff;
+    padding: 15px 40px;
+    font-family: Arial, sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    border: none;
+}
+
+.other-news-section {
+    background: #fff;
+    padding: 80px 0;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.other-news-section h2 {
+    font-family: Arial, sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 70px;
+}
+
+.other-news-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.other-news-card .news-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.other-news-card .news-content {
+    padding: 30px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.other-news-card .news-title {
+    font-family: Arial, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 15px;
+    line-height: 1.3;
+    height: 50px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.other-news-card .news-excerpt {
+    font-family: Arial, sans-serif;
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    flex-grow: 1;
+    font-size: 0.9rem;
+}
+
+.other-news-card .news-footer {
+    margin-top: auto;
+}
+
+.other-news-card .news-footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.other-news-card .read-more {
+    color: #ff9500;
+    font-weight: 400;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.other-news-card .news-dots {
+    color: #ccc;
+    font-size: 1.2rem;
+}
+
+/* News Modal Styles */
+.modal-content {
+    border: none;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.modal-header {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 1.5rem;
+}
+
+.modal-title {
+    font-family: Arial, sans-serif;
+    font-weight: 700;
+    color: #fff;
+}
+
+.modal-body {
+    padding: 0;
+}
+
+.modal-body img {
+    height: 300px;
+    object-fit: cover;
+}
+
+.modal-body .p-4 {
+    padding: 1.5rem;
+}
+
+.modal-body .badge {
+    background: #ff9500;
+    color: #fff;
+    padding: 5px 15px;
+    border-radius: 15px;
+}
+
+.modal-body .content {
+    line-height: 1.8;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.modal-footer {
+    border: none;
+    background-color: #f5f5f5;
+    padding: 1rem 1.5rem;
+}
+
+.modal-footer .btn {
+    padding: 10px 30px;
+    font-family: Arial, sans-serif;
+    font-weight: 500;
+    border: none;
+    border-radius: 5px;
+}
+
+.modal-footer .btn:first-child {
+    background: #000;
+    color: #fff;
+}
+
+/* Gallery Page Styles */
+.carousel-section {
+    background: #f5f5f5;
+    padding: 80px 0;
+}
+
+.image-carousel-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.main-image-container {
+    position: relative;
+    background: linear-gradient(135deg, #ff6b35, #f7931e);
+    border-radius: 25px;
+    padding: 40px;
+    margin-bottom: 30px;
+    height: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-image-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.main-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.9);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.carousel-nav.prev {
+    left: 15px;
+}
+
+.carousel-nav.next {
+    right: 15px;
+}
+
+.carousel-nav:hover {
+    background: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.gallery-carousel-section {
+    background: #fff;
+    padding: 80px 0;
+}
+
+.gallery-carousel-container {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gallery-image-wrapper {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.gallery-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gallery-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.7);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.gallery-nav.prev {
+    left: -25px;
+}
+
+.gallery-nav.next {
+    right: -25px;
+}
+
+.gallery-nav:hover {
+    background: rgba(0,0,0,0.9);
+}
+
+@media (max-width: 768px) {
+    .main-image-container {
+        height: 300px;
+        padding: 20px;
+    }
+    
+    .gallery-carousel-container {
+        height: 300px;
+    }
+}
+
+/* Product Carousel Section */
+.product-carousel-section {
+    background: #f5f5f5;
+    padding: 80px 0;
+}
+
+.product-carousel-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.product-carousel-wrapper {
+    position: relative;
+    background: linear-gradient(135deg, #ff6b35, #f7931e);
+    border-radius: 25px;
+    padding: 0;
+    height: 375px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.product-carousel-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-carousel-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 25px;
+}
+
+/* Product Grid Section */
+.product-grid-section {
+    background: #fff;
+    padding: 80px 0;
+}
+
+.product-card {
+    width: 100%;
+    height: 250px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+    border: none;
+    box-shadow: none;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.05);
 }

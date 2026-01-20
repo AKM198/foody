@@ -126,83 +126,42 @@
         </div>
         <div class="row news-row">
             <div class="col-lg-6 news-col">
+                @if($news->isNotEmpty())
                 <div class="news-card large-card">
-                    <img src="{{ asset('assets/images/cooking1.jpg') }}" alt="News" class="news-image">
+                    <img src="{{ asset($news->first()->image_path) }}" alt="{{ $news->first()->title }}" class="news-image">
                     <div class="news-content">
-                        <h3 class="news-title">LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT</h3>
-                        <p class="news-excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce scelerisque magna aliquet cursus tempus. Duis viverra metus et turpis elementum elementum. Aliquam rutrum placerat tellus et suscipit. Curabitur facilisis lectus vitae eros malesuada eleifend. Mauris eget tellus odio.</p>
+                        <h3 class="news-title">{{ strtoupper($news->first()->title) }}</h3>
+                        <p class="news-excerpt">{{ Str::limit(strip_tags($news->first()->content), 200) }}</p>
                         <div class="news-footer">
                             <div class="news-footer-bottom">
-                                <span class="read-more">Baca selengkapnya</span>
+                                <a href="#" class="read-more" data-bs-toggle="modal" data-bs-target="#newsModal{{ $news->first()->id }}">Baca selengkapnya</a>
                                 <span class="news-dots">•••</span>
                             </div>
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
             
             <div class="col-lg-6 news-col">
                 <div class="row news-row">
+                    @foreach($news->skip(1)->take(4) as $article)
                     <div class="col-md-6 news-col">
                         <div class="news-card small-card">
-                            <img src="{{ asset('assets/images/cooking2.jpg') }}" alt="News" class="news-image">
+                            <img src="{{ asset($article->image_path) }}" alt="{{ $article->title }}" class="news-image">
                             <div class="news-content">
-                                <h4 class="news-title">LOREM IPSUM</h4>
-                                <p class="news-excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                <h4 class="news-title">{{ strtoupper(Str::limit($article->title, 20)) }}</h4>
+                                <p class="news-excerpt">{{ Str::limit(strip_tags($article->content), 80) }}</p>
                                 <div class="news-footer">
                                     <div class="news-footer-bottom">
-                                        <span class="read-more">Baca selengkapnya</span>
+                                        <a href="#" class="read-more" data-bs-toggle="modal" data-bs-target="#newsModal{{ $article->id }}">Baca selengkapnya</a>
                                         <span class="news-dots">•••</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 news-col">
-                        <div class="news-card small-card">
-                            <img src="{{ asset('assets/images/cooking3.jpg') }}" alt="News" class="news-image">
-                            <div class="news-content">
-                                <h4 class="news-title">LOREM IPSUM</h4>
-                                <p class="news-excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                <div class="news-footer">
-                                    <div class="news-footer-bottom">
-                                        <span class="read-more">Baca selengkapnya</span>
-                                        <span class="news-dots">•••</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 news-col">
-                        <div class="news-card small-card">
-                            <img src="{{ asset('assets/images/cooking4.jpg') }}" alt="News" class="news-image">
-                            <div class="news-content">
-                                <h4 class="news-title">LOREM IPSUM</h4>
-                                <p class="news-excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                <div class="news-footer">
-                                    <div class="news-footer-bottom">
-                                        <span class="read-more">Baca selengkapnya</span>
-                                        <span class="news-dots">•••</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 news-col">
-                        <div class="news-card small-card">
-                            <img src="{{ asset('assets/images/cooking5.jpg') }}" alt="News" class="news-image">
-                            <div class="news-content">
-                                <h4 class="news-title">LOREM IPSUM</h4>
-                                <p class="news-excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                <div class="news-footer">
-                                    <div class="news-footer-bottom">
-                                        <span class="read-more">Baca selengkapnya</span>
-                                        <span class="news-dots">•••</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -252,5 +211,35 @@
         </div>
     </div>
 </section>
+
+<!-- News Modals -->
+@foreach($news as $article)
+<div class="modal fade" id="newsModal{{ $article->id }}" tabindex="-1" aria-labelledby="newsModalLabel{{ $article->id }}" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newsModalLabel{{ $article->id }}">{{ $article->title }}</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img src="{{ asset($article->image_path) }}" alt="{{ $article->title }}" class="img-fluid w-100">
+                <div class="p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="badge">{{ ucfirst($article->category ?? 'Berita') }}</span>
+                        <small class="text-muted">{{ $article->created_at->format('F d, Y') }}</small>
+                    </div>
+                    <div class="content">
+                        {!! nl2br(e($article->content)) !!}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" data-bs-dismiss="modal">Tutup</button>
+                <a href="{{ route('news.index') }}" class="btn">Lihat Berita Lainnya</a>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
 
 @endsection

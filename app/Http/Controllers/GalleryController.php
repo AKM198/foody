@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class GalleryController extends Controller
 {
     public function index()
     {
-        $products = Product::where('is_available', true)->latest()->get();
+        $products = Product::all();
         return view('gallery.gallery', compact('products'));
     }
 }

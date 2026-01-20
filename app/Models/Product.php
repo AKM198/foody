@@ -2,21 +2,30 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'name',
         'description',
-        'category',
         'price',
         'image_path',
+        'category',
         'is_available'
     ];
 
+    protected $appends = ['image'];
+
+    public function getImageAttribute()
+    {
+        return $this->image_path;
+    }
+
     protected $casts = [
-        'price' => 'decimal:2',
-        'is_available' => 'boolean'
+        'price' => 'decimal:2'
     ];
 }
