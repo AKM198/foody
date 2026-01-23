@@ -1,0 +1,238 @@
+/* Admin Panel Styles */
+.admin-sidebar {
+    background: #000;
+    min-height: 100vh;
+    padding: 20px 0;
+}
+
+.admin-brand {
+    text-center: true;
+    margin-bottom: 2rem;
+}
+
+.admin-brand h4 {
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.admin-brand p {
+    color: #ccc;
+    font-family: Arial, sans-serif;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.admin-divider {
+    border-color: #444;
+    margin: 1rem 0;
+}
+
+.admin-section-title {
+    color: #888;
+    padding: 0 1rem;
+    font-family: Arial, sans-serif;
+}
+
+.admin-page-title {
+    font-family: Arial, sans-serif;
+    font-weight: 700;
+    color: #000;
+    margin: 0;
+}
+
+.admin-date {
+    font-family: Arial, sans-serif;
+    color: #666;
+}
+
+.admin-sidebar .nav-link {
+    color: #fff;
+    padding: 15px 20px;
+    font-family: Arial, sans-serif;
+    border-bottom: 1px solid #333;
+    transition: all 0.3s ease;
+}
+
+.admin-sidebar .nav-link:hover,
+.admin-sidebar .nav-link.active {
+    background: #333;
+    color: #fff;
+}
+
+.admin-sidebar .nav-link i {
+    width: 20px;
+    text-align: center;
+}
+
+.admin-header {
+    background: #f5f5f5;
+    padding: 20px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.admin-content {
+    padding: 30px;
+    background: #fff;
+    min-height: calc(100vh - 80px);
+}
+
+.stats-card {
+    background: #f5f5f5;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.stats-card h3 {
+    font-family: Arial, sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 10px;
+}
+
+.stats-card p {
+    font-family: Arial, sans-serif;
+    color: #666;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.admin-table {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.admin-table th {
+    background: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-weight: 600;
+    padding: 15px;
+    border: none;
+}
+
+.admin-table td {
+    padding: 15px;
+    font-family: Arial, sans-serif;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+
+.admin-table tbody tr:hover {
+    background: #f8f9fa;
+}
+
+.btn-admin {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.btn-admin:hover {
+    background: #333;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.btn-admin i {
+    margin-right: 5px;
+}
+
+/* Gallery Cards */
+.admin-gallery-card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.admin-gallery-card:hover {
+    transform: translateY(-5px);
+}
+
+.admin-gallery-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.admin-gallery-card .card-body {
+    padding: 20px;
+}
+
+.admin-gallery-card .card-title {
+    font-family: Arial, sans-serif;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 10px;
+}
+
+.admin-gallery-card .card-text {
+    font-family: Arial, sans-serif;
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Modal Styles */
+.modal-header {
+    background: #000;
+    color: #fff;
+    border: none;
+}
+
+.modal-title {
+    font-family: Arial, sans-serif;
+    font-weight: 700;
+}
+
+.modal-body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+.modal-footer {
+    border: none;
+    background: #f8f9fa;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .admin-sidebar {
+        min-height: auto;
+    }
+    
+    .admin-content {
+        padding: 20px;
+    }
+    
+    .stats-card {
+        margin-bottom: 15px;
+    }
+    
+    .admin-table {
+        font-size: 0.9rem;
+    }
+    
+    .admin-table th,
+    .admin-table td {
+        padding: 10px;
+    }
+}

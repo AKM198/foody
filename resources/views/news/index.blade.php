@@ -29,8 +29,7 @@
             <div class="col-lg-6">
                 <div class="featured-content">
                     <h2>{{ strtoupper($news->first()->title) }}</h2>
-                    <p>{{ Str::limit(strip_tags($news->first()->content), 200) }}</p>
-                    <p>{{ Str::limit(strip_tags($news->first()->content), 200, '') }}</p>
+                    <p>{{ Str::limit(strip_tags($news->first()->content), 400) }}</p>
                     <button class="btn" data-bs-toggle="modal" data-bs-target="#newsModal{{ $news->first()->id }}">BACA SELENGKAPNYA</button>
                 </div>
             </div>
@@ -136,7 +135,6 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn" data-bs-dismiss="modal">Tutup</button>
-                <a href="{{ route('welcome') }}" class="btn">Kembali ke Beranda</a>
             </div>
         </div>
     </div>

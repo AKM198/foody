@@ -17,17 +17,14 @@
                     <div class="hero-brand-title">
                         <div class="hero-line"></div>
                         <h1 class="hero-title">
-                            HEALTHY<br>
+                            {{ $pageContents['hero_title']->content_value ?? 'HEALTHY' }}<br>
                             <span class="hero-bold">TASTY FOOD</span>
                         </h1>
                     </div>
                     <p class="hero-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ornare, 
-                        augue eu rutrum commodo, dui diam convallis arcu, eget consectetur ex sem 
-                        eget lacus. Nullam vitae dignissim neque, vel luctus ex. Fusce sit amet 
-                        viverra ante.
-                    </p>
-                    <a href="#tentang" class="btn-tentang">TENTANG KAMI</a>
+                        {{ $pageContents['hero_description']->content_value ?? 'Nikmati kelezatan makanan sehat yang disiapkan dengan bahan-bahan segar pilihan terbaik. Kami menghadirkan cita rasa autentik yang memanjakan lidah sambil menjaga kesehatan tubuh Anda. Setiap hidangan dibuat dengan penuh perhatian untuk memberikan nutrisi optimal bagi keluarga.' }}
+                    </p> 
+                    <a href="{{ route('about.index') }}" class="btn-tentang">TENTANG KAMI</a>
                 </div>
             </div>
         </div>
@@ -42,10 +39,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <p class="tentang-description">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ornare, 
-                        augue eu rutrum commodo, dui diam convallis arcu, eget consectetur ex sem 
-                        eget lacus. Nullam vitae dignissim neque, vel luctus ex. Fusce sit amet 
-                        viverra ante.
+                        {{ $pageContents['tentang_description']->content_value ?? 'Tasty Food hadir sebagai solusi terpercaya untuk kebutuhan makanan sehat dan bergizi keluarga Indonesia. Dengan komitmen menggunakan bahan-bahan segar berkualitas tinggi, kami menghadirkan berbagai pilihan hidangan lezat yang tidak hanya memanjakan lidah tetapi juga memberikan nutrisi terbaik untuk kesehatan optimal.' }}
                     </p>
                     <div class="tentang-line"></div>
                 </div>
@@ -64,10 +58,10 @@
                         <img src="{{ asset('assets/images/healty1.png') }}" alt="Menu" class="menu-image">
                     </div>
                     <div class="menu-content">
-                        <h4 class="menu-title">LOREM IPSUM</h4>
+                        <h4 class="menu-title">MAKANAN SEHAT</h4>
                         <p class="menu-description">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                            Phasellus ornare, augue eu rutrum commodo,
+                            Hidangan bergizi tinggi yang diolah dengan teknik memasak modern 
+                            untuk mempertahankan kandungan vitamin dan mineral alami.
                         </p>
                     </div>
                 </div>
@@ -78,10 +72,10 @@
                         <img src="{{ asset('assets/images/healty2.png') }}" alt="Menu" class="menu-image">
                     </div>
                     <div class="menu-content">
-                        <h4 class="menu-title">LOREM IPSUM</h4>
+                        <h4 class="menu-title">MAKANAN SEGAR</h4>
                         <p class="menu-description">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                            Phasellus ornare, augue eu rutrum commodo,
+                            Bahan-bahan segar pilihan yang dipetik langsung dari kebun organik 
+                            untuk menjamin kualitas dan kesegaran setiap hidangan.
                         </p>
                     </div>
                 </div>
@@ -92,10 +86,10 @@
                         <img src="{{ asset('assets/images/healty3.png') }}" alt="Menu" class="menu-image">
                     </div>
                     <div class="menu-content">
-                        <h4 class="menu-title">LOREM IPSUM</h4>
+                        <h4 class="menu-title">MAKANAN BERGIZI</h4>
                         <p class="menu-description">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                            Phasellus ornare, augue eu rutrum commodo,
+                            Menu seimbang dengan kandungan protein, karbohidrat, dan vitamin 
+                            yang tepat untuk mendukung gaya hidup sehat keluarga.
                         </p>
                     </div>
                 </div>
@@ -106,10 +100,10 @@
                         <img src="{{ asset('assets/images/street3.png') }}" alt="Menu" class="menu-image">
                     </div>
                     <div class="menu-content">
-                        <h4 class="menu-title">LOREM IPSUM</h4>
+                        <h4 class="menu-title">MAKANAN LEZAT</h4>
                         <p class="menu-description">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                            Phasellus ornare, augue eu rutrum commodo,
+                            Cita rasa autentik yang memadukan resep tradisional dengan 
+                            sentuhan modern untuk pengalaman kuliner yang tak terlupakan.
                         </p>
                     </div>
                 </div>
@@ -207,7 +201,7 @@
             </div>
         </div>
         <div class="text-center mt-5">
-            <a href="#" class="btn-lihat-lebih">LIHAT LEBIH BANYAK</a>
+            <a href="{{ route('gallery.index') }}" class="btn-lihat-lebih">LIHAT LEBIH BANYAK</a>
         </div>
     </div>
 </section>

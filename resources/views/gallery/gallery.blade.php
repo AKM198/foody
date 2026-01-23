@@ -4,12 +4,12 @@
 
 @section('content')
 <!-- Header Section with Banner2 Background -->
-<section class="galeri-header">
+<section class="about-header">
     <div class="container-fluid">
         <div class="row align-items-center h-100">
             <div class="col-lg-12">
-                <div class="galeri-header-content">
-                    <h1 class="about-header-title">GALERI</h1>
+                <div class="about-header-content">
+                    <h1 class="about-header-title">GALERI KAMI</h1>
                 </div>
             </div>
         </div>
@@ -48,13 +48,13 @@
 
 <script>
 let currentSlide = 0;
-const products = @json($products->map(function($product) {
+const products = {!! json_encode($products->map(function($product) {
     return [
         'id' => $product->id,
         'name' => $product->name,
         'image' => $product->image
     ];
-}));
+})) !!};
 
 function showSlide(index) {
     if (products.length > 0) {

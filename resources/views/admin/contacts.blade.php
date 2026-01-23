@@ -1,50 +1,138 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
-@section('title', 'Contacts - Admin')
+@section('title', 'Kelola Kontak - Admin TASTY FOOD')
+@section('page-title', 'Pesan Kontak')
 
 @section('content')
-<div class="container-lg py-5">
-    <div class="row">
-        <div class="col-12 mb-4">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h1 class="h3 fw-bold">Contact Messages</h1>
-                    <p class="text-muted">Manage customer inquiries</p>
-                </div>
-                <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-primary">Back to Dashboard</a>
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 style="font-family: Arial, sans-serif; color: #000; margin: 0;">Daftar Pesan Kontak</h4>
+            <div class="btn-group" role="group">
+                <button class="btn btn-admin">
+                    <i class="fas fa-envelope-open me-2"></i>Tandai Dibaca
+                </button>
+                <button class="btn btn-outline-danger">
+                    <i class="fas fa-trash me-2"></i>Hapus Terpilih
+                </button>
             </div>
         </div>
-    </div>
-    
-    <div class="row">
-        <div class="col-12">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
+        
+        <div class="admin-table">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th width="50">
+                            <input type="checkbox" class="form-check-input">
+                        </th>
+                        <th>Nama</th>
+                        <th>Email</th>
+                        <th>Subject</th>
+                        <th>Pesan</th>
+                        <th>Tanggal</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
                     @forelse($contacts as $contact)
-                    <div class="border-bottom py-4">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <h5 class="fw-bold">{{ $contact->subject }}</h5>
-                                <p class="mb-2"><strong>From:</strong> {{ $contact->name }} ({{ $contact->email }})</p>
-                                <p class="text-muted">{{ $contact->message }}</p>
-                            </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-                            <div class="col-md-4 text-md-end">
-                                <small class="text-muted">{{ $contact->created_at->format('M d, Y H:i') }}</small>
+                    <tr>
+                        <td>
+                            <input type="checkbox" class="form-check-input">
+                        </td>
+                        <td>
+                            <strong>{{ $contact->name }}</strong>
+                        </td>
+                        <td>{{ $contact->email }}</td>
+                        <td>{{ Str::limit($contact->subject, 30) }}</td>
+                        <td>
+                            <div style="max-width: 250px;">
+                                {{ Str::limit($contact->message, 80) }}
                             </div>
+                        </td>
+                        <td>{{ $contact->created_at->format('d/m/Y H:i') }}</td>
+                        <td>
+                            <span class="badge bg-warning">Baru</span>
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#contactModal{{ $contact->id }}">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-success">
+                                    <i class="fas fa-reply"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="8" class="text-center py-4">
+                            <i class="fas fa-envelope fa-3x text-muted mb-3"></i>
+                            <p class="text-muted">Belum ada pesan kontak</p>
+                        </td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+        
+        @if($contacts->hasPages())
+        <div class="d-flex justify-content-center mt-4">
+            {{ $contacts->links() }}
+        </div>
+        @endif
+    </div>
+</div>
+
+<!-- Contact Detail Modals -->
+@foreach($contacts as $contact)
+<div class="modal fade" id="contactModal{{ $contact->id }}" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #000; color: #fff;">
+                <h5 class="modal-title">Detail Pesan Kontak</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>Nama:</strong>
+                        <p>{{ $contact->name }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Email:</strong>
+                        <p>{{ $contact->email }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>Subject:</strong>
+                        <p>{{ $contact->subject }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Tanggal:</strong>
+                        <p>{{ $contact->created_at->format('d F Y, H:i') }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <strong>Pesan:</strong>
+                        <div class="border p-3 mt-2" style="background: #f8f9fa;">
+                            {{ $contact->message }}
                         </div>
                     </div>
-                    @empty
-                    <div class="text-center py-5">
-                        <svg width="64" height="64" fill="currentColor" class="bi bi-envelope text-muted mb-3" viewBox="0 0 16 16">
-                            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4z"/>
-                        </svg>
-                        <h5 class="text-muted">No contact messages yet</h5>
-                        <p class="text-muted">Customer inquiries will appear here.</p>
-                    </div>
-                    @endforelse
                 </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <button type="button" class="btn btn-admin">Balas Pesan</button>
             </div>
         </div>
     </div>
 </div>
+@endforeach
 @endsection

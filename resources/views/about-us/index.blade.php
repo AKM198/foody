@@ -9,7 +9,7 @@
         <div class="row align-items-center h-100">
             <div class="col-lg-12">
                 <div class="about-header-content">
-                    <h1 class="about-header-title">TENTANG KAMI</h1>
+                    <h1 class="about-header-title">{{ $pageContents['header_title']->content_value ?? 'TENTANG KAMI' }}</h1>
                 </div>
             </div>
         </div>
@@ -24,16 +24,7 @@
                 <div class="about-text-content">
                     <h2 class="about-section-title">TASTY FOOD</h2>
                     <p class="about-paragraph">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ornare, 
-                        augue eu rutrum commodo, dui diam convallis arcu, eget consectetur ex sem 
-                        eget lacus. Nullam vitae dignissim neque, vel luctus ex. Fusce sit amet 
-                        viverra ante.
-                    </p>
-                    <p class="about-paragraph">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ornare, 
-                        augue eu rutrum commodo, dui diam convallis arcu, eget consectetur ex sem 
-                        eget lacus. Nullam vitae dignissim neque, vel luctus ex. Fusce sit amet 
-                        viverra ante.
+                        {{ $pageContents['tasty_food_content']->content_value ?? 'Tasty Food adalah perusahaan kuliner terdepan yang berkomitmen menghadirkan makanan sehat dan bergizi untuk keluarga Indonesia. Sejak didirikan, kami telah melayani ribuan pelanggan dengan standar kualitas tertinggi dalam setiap hidangan yang kami sajikan.' }}
                     </p>
                 </div>
             </div>
@@ -69,14 +60,7 @@
                 <div class="about-text-content">
                     <h2 class="about-section-title">VISI</h2>
                     <p class="about-paragraph">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce scelerisque 
-                        magna aliquet cursus tempus. Duis viverra metus et turpis elementum 
-                        elementum. Aliquam rutrum placerat tellus et suscipit. Curabitur facilisis 
-                        lectus vitae eros malesuada eleifend. Mauris eget tellus odio. Phasellus 
-                        vestibulum turpis ac sem commodo, at posuere eros consequat. Duis nec 
-                        ex at ante volutpat posuere. Morbi vel nunc tortor. Nulla facilisi. Nulla 
-                        accumsan ullamcorper purus nec venenatis. Lorem ipsum dolor sit amet, 
-                        consectetur adipiscing elit. Integer imperdiet erat vel leo rutrum lobortis.
+                        {{ $pageContents['visi_content']->content_value ?? 'Menjadi pelopor revolusi makanan sehat di Indonesia dengan menciptakan generasi yang lebih sadar akan pentingnya nutrisi berkualitas.' }}
                     </p>
                 </div>
             </div>
@@ -92,14 +76,7 @@
                 <div class="about-text-content">
                     <h2 class="about-section-title">MISI</h2>
                     <p class="about-paragraph">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce scelerisque 
-                        magna aliquet cursus tempus. Duis viverra metus et turpis elementum 
-                        elementum. Aliquam rutrum placerat tellus et suscipit. Curabitur facilisis 
-                        lectus vitae eros malesuada eleifend. Mauris eget tellus odio. Phasellus 
-                        vestibulum turpis ac sem commodo, at posuere eros consequat. Duis nec 
-                        ex at ante volutpat posuere. Morbi vel nunc tortor. Nulla facilisi. Nulla 
-                        accumsan ullamcorper purus nec venenatis. Lorem ipsum dolor sit amet, 
-                        consectetur adipiscing elit. Integer imperdiet erat vel leo rutrum lobortis.
+                        {{ $pageContents['misi_content']->content_value ?? 'Menyediakan solusi makanan sehat yang terjangkau dan mudah diakses untuk seluruh masyarakat Indonesia.' }}
                     </p>
                 </div>
             </div>

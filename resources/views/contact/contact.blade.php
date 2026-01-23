@@ -3,106 +3,119 @@
 @section('title', 'Contact Us - Foody')
 
 @section('content')
-<div class="container-xxl py-6">
-    <div class="container">
-        <div class="section-header text-center mx-auto mb-5" style="max-width: 500px;">
-            <h1 class="display-5 mb-3">Contact Us</h1>
-            <p>Get in touch with us for any questions about our delicious homemade food.</p>
-        </div>
-        
-        @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show mb-5" role="alert">
-            <i class="fa fa-check-circle me-2"></i>{{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-        @endif
-        
-        <div class="bg-white rounded shadow-sm p-5">
-            <div class="row g-5">
-                <!-- Contact Form -->
-                <div class="col-lg-6">
-                    <h3 class="mb-4">Contact Form</h3>
-                    <form action="{{ route('contact.store') }}" method="POST">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Your Name</label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" required style="background-color: #f8f9fa; border: 1px solid #e9ecef;">
-                            @error('name')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Your Email</label>
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" required style="background-color: #f8f9fa; border: 1px solid #e9ecef;">
-                            @error('email')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label for="message" class="form-label">Your Message (optional)</label>
-                            <textarea class="form-control @error('message') is-invalid @enderror" id="message" name="message" rows="6" style="resize: none; background-color: #f8f9fa; border: 1px solid #e9ecef;">{{ old('message') }}</textarea>
-                            @error('message')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        
-                        <button type="submit" class="btn rounded-pill px-4 py-2" style="background-color: #C00000; border: none; color: white;">Send Message</button>
-                    </form>
-                </div>
-                
-                <!-- Contact Information -->
-                <div class="col-lg-6">
-                    <div class="row g-4">
-                        <!-- Address -->
-                        <div class="col-12">
-                            <h5 class="mb-3"><i class="fa fa-map-marker-alt me-2" style="color: #C00000;"></i>Address</h5>
-                            <p class="mb-0">Jl. Kuliner Nusantara No. 123, Jakarta Selatan, DKI Jakarta 12345</p>
-                        </div>
-                        
-                        <!-- Phones -->
-                        <div class="col-12">
-                            <h5 class="mb-3"><i class="fa fa-phone me-2" style="color: #C00000;"></i>Phones</h5>
-                            <div class="mb-2">
-                                <i class="fa fa-phone me-2" style="color: #C00000;"></i>+62 812-3456-7890
-                            </div>
-                            <div>
-                                <i class="fa fa-phone me-2" style="color: #C00000;"></i>+62 812-3456-7891
-                            </div>
-                        </div>
-                        
-                        <!-- Email -->
-                        <div class="col-12">
-                            <h5 class="mb-3"><i class="fa fa-envelope me-2" style="color: #C00000;"></i>Email</h5>
-                            <p class="mb-0">
-                                <i class="fa fa-envelope me-2" style="color: #C00000;"></i>foody@gmail.com
-                            </p>
-                        </div>
-                        
-                        <!-- Escalations -->
-                        <div class="col-12">
-                            <h5 class="mb-3"><i class="fa fa-info-circle me-2" style="color: #C00000;"></i>Escalations</h5>
-                            <div class="d-flex align-items-start">
-                                <i class="fa fa-info-circle me-2 mt-1" style="color: #C00000;"></i>
-                                <p class="mb-0 small">"If you are not satisfied with the resolution of your complaint, please escalate your complaint at foody@gmail.com and I will personally take a look and get back to you with proper resolution"- Founder.</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Follow Us -->
-                        <div class="col-12">
-                            <h5 class="mb-3">Follow Us</h5>
-                            <div class="d-flex gap-3">
-                                <a href="#" style="color: #C00000; font-size: 24px;"><i class="fab fa-facebook"></i></a>
-                                <a href="#" style="color: #C00000; font-size: 24px;"><i class="fab fa-instagram"></i></a>
-                                <a href="#" style="color: #C00000; font-size: 24px;"><i class="fab fa-whatsapp"></i></a>
-                                <a href="#" style="color: #C00000; font-size: 24px;"><i class="fab fa-youtube"></i></a>
-                            </div>
-                        </div>
-                    </div>
+<!-- Header Section with Banner2 Background -->
+<section class="about-header">
+    <div class="container-fluid">
+        <div class="row align-items-center h-100">
+            <div class="col-lg-12">
+                <div class="about-header-content">
+                    <h1 class="about-header-title">KONTAK KAMI</h1>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
+
+<!-- Contact Form Section -->
+<section class="contact-form-section">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="contact-form-container">
+                    @if(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+                        <i class="fa fa-check-circle me-2"></i>{{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    @endif
+                    
+                    <h2 class="contact-form-title mb-4">KONTAK KAMI</h2>
+                    
+                    <form action="{{ route('contact.store') }}" method="POST">
+                        @csrf
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <input type="text" class="form-control contact-form-input @error('subject') is-invalid @enderror" name="subject" placeholder="Subject" value="{{ old('subject') }}" required>
+                                    @error('subject')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <input type="text" class="form-control contact-form-input @error('name') is-invalid @enderror" name="name" placeholder="Name" value="{{ old('name') }}" required>
+                                    @error('name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <input type="email" class="form-control contact-form-input @error('email') is-invalid @enderror" name="email" placeholder="Email" value="{{ old('email') }}" required>
+                                    @error('email')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <textarea class="form-control contact-form-textarea @error('message') is-invalid @enderror" name="message" placeholder="Message">{{ old('message') }}</textarea>
+                                    @error('message')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <button type="submit" class="btn contact-form-submit">KIRIM</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Info Section -->
+<section class="contact-info-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="text-center">
+                    <div class="contact-info-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h4 class="contact-info-title">ADDRESS</h4>
+                    <p class="contact-info-text">Jl. Babakan Jeruk II No.9, Pasteur<br>Kec. Sukajadi, Kota Bandung<br>Jawa Barat 40161</p>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="text-center">
+                    <div class="contact-info-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h4 class="contact-info-title">PHONE</h4>
+                    <p class="contact-info-text">+62 822-1234-5678<br>+62 811-9876-5432</p>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="text-center">
+                    <div class="contact-info-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h4 class="contact-info-title">EMAIL</h4>
+                    <p class="contact-info-text">info@foody.com<br>contact@foody.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Map Section -->
+<section class="py-0">
+    <div class="container-fluid px-0">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d300.72595531967187!2d107.66393355737362!3d-6.943197775870065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e7c381e3c323%3A0x5f5160f6c9796e4b!2sCYBERLABS%20-%20Jasa%20Digital%20Marketing%20%7C%20Jasa%20Pembuatan%20Website%20%7C%20Jasa%20Pembuatan%20Aplikasi!5e0!3m2!1sid!2sid!4v1768879182825!5m2!1sid!2sid" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+</section>
 @endsection

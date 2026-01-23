@@ -12,9 +12,9 @@ use App\Http\Controllers\AdminController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/welcome', [HomeController::class, 'index'])->name('welcome');
 Route::resource('news', NewsController::class)->only(['index', 'show']);
-Route::get('/about', [AboutController::class, 'index'])->name('about');
-Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery');
-Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::get('/about', [AboutController::class, 'index'])->name('about.index');
+Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 // API Routes
@@ -35,7 +35,15 @@ Route::get('/api/search', function(\Illuminate\Http\Request $request) {
 
 // Admin Routes (Simple - no authentication for demo)
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/', [AdminController::class, 'index'])->name('index');
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+    Route::get('/news', [AdminController::class, 'news'])->name('news');
+    Route::get('/gallery', [AdminController::class, 'gallery'])->name('gallery');
     Route::get('/contacts', [AdminController::class, 'contacts'])->name('contacts');
-    Route::resource('news', NewsController::class)->except(['index', 'show']);
+    
+    // Page Management Routes
+    Route::get('/home', [AdminController::class, 'editHome'])->name('home');
+    Route::put('/home', [AdminController::class, 'updateHome'])->name('home.update');
+    Route::get('/about', [AdminController::class, 'editAbout'])->name('about');
+    Route::put('/about', [AdminController::class, 'updateAbout'])->name('about.update');
 });
