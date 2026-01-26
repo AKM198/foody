@@ -3,6 +3,16 @@
     background: #000;
     min-height: 100vh;
     padding: 20px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 16.66667%; /* col-md-2 width */
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.admin-main-content {
+    margin-left: 16.66667%; /* Same as sidebar width */
 }
 
 .admin-brand {
@@ -211,6 +221,42 @@
 .modal-footer {
     border: none;
     background: #f8f9fa;
+}
+
+/* Pagination Styles */
+.pagination {
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.pagination .page-link {
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    margin: 0 2px;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.pagination .page-link:hover {
+    color: #fff;
+    background-color: #000;
+    border-color: #000;
+}
+
+.pagination .page-item.active .page-link {
+    color: #fff;
+    background-color: #000;
+    border-color: #000;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #6c757d;
+    background-color: #fff;
+    border-color: #dee2e6;
 }
 
 /* Responsive */

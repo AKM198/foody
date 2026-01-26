@@ -58,11 +58,11 @@
                     <div class="col-md-6">
                         <h6 style="font-family: Arial, sans-serif; color: #000; font-weight: 600;">Akses Cepat:</h6>
                         <div class="d-flex gap-2 flex-wrap">
-                            <a href="{{ route('admin.news') }}" class="btn btn-admin">Kelola Berita</a>
-                            <a href="{{ route('admin.gallery') }}" class="btn btn-admin">Kelola Galeri</a>
-                            <a href="{{ route('admin.contacts') }}" class="btn btn-admin">Lihat Kontak</a>
-                            <a href="{{ route('admin.home') }}" class="btn btn-admin">Home</a>
-                            <a href="{{ route('admin.about') }}" class="btn btn-admin">About</a>
+                            <a href="{{ route('admin.news.index') }}" class="btn btn-admin">Kelola Berita</a>
+                            <a href="{{ route('admin.gallery.index') }}" class="btn btn-admin">Kelola Galeri</a>
+                            <a href="{{ route('admin.contacts.index') }}" class="btn btn-admin">Lihat Kontak</a>
+                            <a href="{{ route('admin.home.edit') }}" class="btn btn-admin">Home</a>
+                            <a href="{{ route('admin.about.edit') }}" class="btn btn-admin">About</a>
                         </div>
                     </div>
                 </div>

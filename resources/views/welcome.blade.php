@@ -55,7 +55,7 @@
             <div class="col-lg-3 col-md-6 menu-col">
                 <div class="menu-card">
                     <div class="menu-image-container">
-                        <img src="{{ asset('assets/images/healty1.png') }}" alt="Menu" class="menu-image">
+                        <img src="{{ isset($pageImages['menu_card_1']) ? asset($pageImages['menu_card_1']->image_path) : asset('assets/images/healty1.png') }}" alt="Menu" class="menu-image">
                     </div>
                     <div class="menu-content">
                         <h4 class="menu-title">MAKANAN SEHAT</h4>
@@ -69,7 +69,7 @@
             <div class="col-lg-3 col-md-6 menu-col">
                 <div class="menu-card">
                     <div class="menu-image-container">
-                        <img src="{{ asset('assets/images/healty2.png') }}" alt="Menu" class="menu-image">
+                        <img src="{{ isset($pageImages['menu_card_2']) ? asset($pageImages['menu_card_2']->image_path) : asset('assets/images/healty2.png') }}" alt="Menu" class="menu-image">
                     </div>
                     <div class="menu-content">
                         <h4 class="menu-title">MAKANAN SEGAR</h4>
@@ -83,7 +83,7 @@
             <div class="col-lg-3 col-md-6 menu-col">
                 <div class="menu-card">
                     <div class="menu-image-container">
-                        <img src="{{ asset('assets/images/healty3.png') }}" alt="Menu" class="menu-image">
+                        <img src="{{ isset($pageImages['menu_card_3']) ? asset($pageImages['menu_card_3']->image_path) : asset('assets/images/healty3.png') }}" alt="Menu" class="menu-image">
                     </div>
                     <div class="menu-content">
                         <h4 class="menu-title">MAKANAN BERGIZI</h4>
@@ -97,7 +97,7 @@
             <div class="col-lg-3 col-md-6 menu-col">
                 <div class="menu-card">
                     <div class="menu-image-container">
-                        <img src="{{ asset('assets/images/street3.png') }}" alt="Menu" class="menu-image">
+                        <img src="{{ isset($pageImages['menu_card_4']) ? asset($pageImages['menu_card_4']->image_path) : asset('assets/images/street3.png') }}" alt="Menu" class="menu-image">
                     </div>
                     <div class="menu-content">
                         <h4 class="menu-title">MAKANAN LEZAT</h4>

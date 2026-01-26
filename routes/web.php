@@ -6,7 +6,12 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\DashboardAdmController;
+use App\Http\Controllers\Admin\NewsAdmController;
+use App\Http\Controllers\Admin\GalleryAdmController;
+use App\Http\Controllers\Admin\ContactsAdmController;
+use App\Http\Controllers\Admin\HomeAdmController;
+use App\Http\Controllers\Admin\AboutAdmController;
 
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -35,15 +40,32 @@ Route::get('/api/search', function(\Illuminate\Http\Request $request) {
 
 // Admin Routes (Simple - no authentication for demo)
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/', [AdminController::class, 'index'])->name('index');
-    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
-    Route::get('/news', [AdminController::class, 'news'])->name('news');
-    Route::get('/gallery', [AdminController::class, 'gallery'])->name('gallery');
-    Route::get('/contacts', [AdminController::class, 'contacts'])->name('contacts');
+    Route::get('/', [DashboardAdmController::class, 'index'])->name('index');
+    Route::get('/dashboard', [DashboardAdmController::class, 'index'])->name('dashboard');
+    
+    // News CRUD
+    Route::get('/news', [NewsAdmController::class, 'index'])->name('news.index');
+    Route::get('/news/create', [NewsAdmController::class, 'create'])->name('news.create');
+    Route::post('/news', [NewsAdmController::class, 'store'])->name('news.store');
+    Route::get('/news/{news}/edit', [NewsAdmController::class, 'edit'])->name('news.edit');
+    Route::put('/news/{news}', [NewsAdmController::class, 'update'])->name('news.update');
+    Route::delete('/news/{news}', [NewsAdmController::class, 'destroy'])->name('news.destroy');
+    
+    // Gallery CRUD
+    Route::get('/gallery', [GalleryAdmController::class, 'index'])->name('gallery.index');
+    Route::get('/gallery/create', [GalleryAdmController::class, 'create'])->name('gallery.create');
+    Route::post('/gallery', [GalleryAdmController::class, 'store'])->name('gallery.store');
+    Route::get('/gallery/{gallery}/edit', [GalleryAdmController::class, 'edit'])->name('gallery.edit');
+    Route::put('/gallery/{gallery}', [GalleryAdmController::class, 'update'])->name('gallery.update');
+    Route::delete('/gallery/{gallery}', [GalleryAdmController::class, 'destroy'])->name('gallery.destroy');
+    
+    // Contacts
+    Route::get('/contacts', [ContactsAdmController::class, 'index'])->name('contacts.index');
+    Route::delete('/contacts/{contact}', [ContactsAdmController::class, 'destroy'])->name('contacts.destroy');
     
     // Page Management Routes
-    Route::get('/home', [AdminController::class, 'editHome'])->name('home');
-    Route::put('/home', [AdminController::class, 'updateHome'])->name('home.update');
-    Route::get('/about', [AdminController::class, 'editAbout'])->name('about');
-    Route::put('/about', [AdminController::class, 'updateAbout'])->name('about.update');
+    Route::get('/home', [HomeAdmController::class, 'edit'])->name('home.edit');
+    Route::put('/home', [HomeAdmController::class, 'update'])->name('home.update');
+    Route::get('/about', [AboutAdmController::class, 'edit'])->name('about.edit');
+    Route::put('/about', [AboutAdmController::class, 'update'])->name('about.update');
 });

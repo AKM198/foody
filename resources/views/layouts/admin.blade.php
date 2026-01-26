@@ -18,7 +18,7 @@
             </div>
             
             <!-- Main Content -->
-            <div class="col-md-10 p-0">
+            <div class="col-md-10 p-0 admin-main-content">
                 <!-- Header -->
                 <div class="admin-header">
                     <div class="container-fluid">
