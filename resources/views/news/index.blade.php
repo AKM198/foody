@@ -1,6 +1,6 @@
 @extends('layouts.foody')
 
-@section('title', 'TASTY FOOD - Berita Kami')
+@section('title', 'FOODY - Berita Kami')
 
 @section('content')
 <!-- Header Section with Banner2 Background -->
@@ -44,7 +44,7 @@
         <h2>BERITA LAINNYA</h2>
         
         <div class="news-cards-row row">
-            @php $otherNews = $news->skip(1)->take(8); @endphp
+            @php $otherNews = $news->skip(1); @endphp
             @forelse($otherNews as $article)
             <div class="news-card-col col-lg-3 col-md-6 mb-4">
                 <div class="news-card small-card">
@@ -68,32 +68,9 @@
             @endforelse
         </div>
         
-        @if($news->count() > 9)
-        <div class="text-center mt-5">
-            <button id="showAllNews" class="btn-lihat-lebih">TAMPILKAN SEMUA</button>
-        </div>
-        @endif
-        
-        <!-- Hidden news cards for show all functionality -->
-        <div id="hiddenNewsCards" class="news-cards-row row" style="display: none;">
-            @php $hiddenNews = $news->skip(9); @endphp
-            @foreach($hiddenNews as $article)
-            <div class="news-card-col col-lg-3 col-md-6 mb-4">
-                <div class="news-card small-card">
-                    <img src="{{ asset($article->image_path) }}" alt="{{ $article->title }}" class="news-image">
-                    <div class="news-content">
-                        <h4 class="news-title">{{ strtoupper($article->title) }}</h4>
-                        <p class="news-excerpt">{{ Str::limit(strip_tags($article->content), 100) }}</p>
-                        <div class="news-footer">
-                            <div class="news-footer-bottom">
-                                <a href="#" class="read-more" data-bs-toggle="modal" data-bs-target="#newsModal{{ $article->id }}">Baca selengkapnya</a>
-                                <span class="news-dots">•••</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endforeach
+        <!-- Pagination Links -->
+        <div class="d-flex justify-content-center mt-4">
+            {{ $news->links('pagination::bootstrap-4') }}
         </div>
     </div>
 </section>

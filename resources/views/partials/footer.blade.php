@@ -3,7 +3,10 @@
         <div class="row">
             <!-- Left Column - Brand Info -->
             <div class="col-md-4">
-                <h2 class="footer-brand-title">Tasty Food</h2>
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <img src="{{ asset('assets/images/foodylogo.png') }}" alt="FOODY" style="height: 40px; margin-right: 15px;">
+                    <h2 class="footer-brand-title" style="margin: 0;">FOODY</h2>
+                </div>
                 <p class="footer-description">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                 </p>
@@ -50,7 +53,7 @@
                     <ul class="footer-contact-list">
                         <li>
                             <i class="fas fa-envelope"></i>
-                            <span>tastyfood@gmail.com</span>
+                            <span>foody@gmail.com</span>
                         </li>
                         <li>
                             <i class="fas fa-phone"></i>

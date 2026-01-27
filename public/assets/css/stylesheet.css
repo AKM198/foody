@@ -21,6 +21,11 @@
     background: #000;
 }
 
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
 .navbar-brand .brand-title {
     font-family: Arial, sans-serif;
     font-size: 1.8rem;
@@ -73,6 +78,20 @@
     opacity: 0.7;
 }
 
+/* Home page specific navigation positioning */
+body.home-page .navbar-nav {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+body.home-page .navbar-nav .nav-link {
+    color: #000;
+}
+
+body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
+    color: #fff;
+}
+
 /* Scroll to Top Button */
 .scroll-to-top {
     position: fixed;
@@ -115,6 +134,10 @@
 #spinner:not(.show) {
     opacity: 0;
     visibility: hidden;
+}
+
+.text-dark {
+    color: #000 !important;
 }
 
 /* Search Modal Styles */
@@ -250,25 +273,30 @@
 .hero-section {
     background-color: #f5f5f5;
     padding: 120px 0 60px 0;
-    min-height: 80vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     position: relative;
+    overflow: hidden;
 }
 
 .hero-image-top-right {
     position: absolute;
-    top: 20px;
-    right: 50px;
+    top: -80px;
+    right: -80px;
     z-index: 1;
 }
 
 .hero-image-circle {
-    width: 450px;
-    height: 450px;
+    width: 720px;
+    height: 720px;
     border-radius: 50%;
     overflow: hidden;
     box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    background: rgba(245, 245, 245, 0.8);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 3px solid rgba(255, 255, 255, 0.3);
 }
 
 .hero-image-circle img {
@@ -308,21 +336,27 @@
 .hero-description {
     font-family: Arial, sans-serif;
     color: #666;
-    font-size: 1.1rem;
+    font-size: 1rem;
     line-height: 1.8;
     margin-bottom: 40px;
-    max-width: 480px;
+    max-width: 980px;
 }
 
 .btn-tentang {
     background-color: #000;
     color: #fff;
-    padding: 15px 40px;
+    padding: 20px 80px;
     text-decoration: none;
     font-weight: 400;
     letter-spacing: 1px;
     font-size: 0.9rem;
     font-family: Arial, sans-serif;
+    transition: background-color 0.3s ease;
+}
+
+.btn-tentang:hover {
+    background-color: #333;
+    color: #fff;
 }
 
 /* Section Titles */
@@ -461,8 +495,16 @@
     object-fit: cover;
 }
 
+.news-card.large-card {
+    height: 820px;
+}
+
 .news-card.large-card .news-image {
     height: 300px;
+}
+
+.news-card.small-card {
+    height: 400px;
 }
 
 .news-card.small-card .news-image {

@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Gallery;
+use App\Models\Product;
 
 class GalleryAdmController extends Controller
 {
     public function index()
     {
-        $galleries = Gallery::latest()->paginate(12);
+        $galleries = Product::where('category', 'gallery')->latest()->paginate(6);
         return view('admin.gallery.index', compact('galleries'));
     }
     
@@ -22,43 +22,51 @@ class GalleryAdmController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|max:255',
+            'name' => 'required|max:255',
             'description' => 'nullable',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
         
-        $imagePath = $request->file('image')->store('gallery', 'public');
+        if ($request->hasFile('image')) {
+            $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+            $request->file('image')->move(public_path('storage/gallery'), $imageName);
+            
+            Product::create([
+                'name' => $request->name,
+                'description' => $request->description,
+                'price' => 0,
+                'image_path' => 'storage/gallery/' . $imageName,
+                'category' => 'gallery'
+            ]);
+            
+            return redirect()->route('admin.gallery.index')->with('success', 'Gallery created successfully!');
+        }
         
-        Gallery::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'image_path' => 'storage/' . $imagePath
-        ]);
-        
-        return redirect()->route('admin.gallery.index')->with('success', 'Gallery created successfully!');
+        return redirect()->back()->withErrors(['image' => 'The image failed to upload.'])->withInput();
     }
     
-    public function edit(Gallery $gallery)
+    public function edit(Product $gallery)
     {
         return view('admin.gallery.edit', compact('gallery'));
     }
     
-    public function update(Request $request, Gallery $gallery)
+    public function update(Request $request, Product $gallery)
     {
         $request->validate([
-            'title' => 'required|max:255',
+            'name' => 'required|max:255',
             'description' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
         
         $data = [
-            'title' => $request->title,
+            'name' => $request->name,
             'description' => $request->description
         ];
         
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('gallery', 'public');
-            $data['image_path'] = 'storage/' . $imagePath;
+            $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+            $request->file('image')->move(public_path('storage/gallery'), $imageName);
+            $data['image_path'] = 'storage/gallery/' . $imageName;
         }
         
         $gallery->update($data);
@@ -66,7 +74,7 @@ class GalleryAdmController extends Controller
         return redirect()->route('admin.gallery.index')->with('success', 'Gallery updated successfully!');
     }
     
-    public function destroy(Gallery $gallery)
+    public function destroy(Product $gallery)
     {
         $gallery->delete();
         return redirect()->route('admin.gallery.index')->with('success', 'Gallery deleted successfully!');

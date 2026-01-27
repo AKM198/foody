@@ -35,45 +35,17 @@
         <div class="col-md-6">
             <h4>Menu Card Images</h4>
             
+            @foreach(['menu_card_1', 'menu_card_2', 'menu_card_3', 'menu_card_4'] as $index => $field)
             <div class="form-group mb-3">
-                <label for="menu_card_1">Menu Card 1</label>
-                @if(isset($images['menu_card_1']))
+                <label for="{{ $field }}">Menu Card {{ $index + 1 }}</label>
+                @if(isset($images[$field]))
                     <div class="mb-2">
-                        <img src="{{ asset($images['menu_card_1']->image_path) }}" alt="Current" style="max-width: 100px; height: auto;">
+                        <img src="{{ asset($images[$field]->image_path) }}" alt="Current" style="max-width: 100px; height: auto;">
                     </div>
                 @endif
-                <input type="file" class="form-control" id="menu_card_1" name="menu_card_1" accept="image/*">
+                <input type="file" class="form-control" id="{{ $field }}" name="{{ $field }}" accept="image/*">
             </div>
-            
-            <div class="form-group mb-3">
-                <label for="menu_card_2">Menu Card 2</label>
-                @if(isset($images['menu_card_2']))
-                    <div class="mb-2">
-                        <img src="{{ asset($images['menu_card_2']->image_path) }}" alt="Current" style="max-width: 100px; height: auto;">
-                    </div>
-                @endif
-                <input type="file" class="form-control" id="menu_card_2" name="menu_card_2" accept="image/*">
-            </div>
-            
-            <div class="form-group mb-3">
-                <label for="menu_card_3">Menu Card 3</label>
-                @if(isset($images['menu_card_3']))
-                    <div class="mb-2">
-                        <img src="{{ asset($images['menu_card_3']->image_path) }}" alt="Current" style="max-width: 100px; height: auto;">
-                    </div>
-                @endif
-                <input type="file" class="form-control" id="menu_card_3" name="menu_card_3" accept="image/*">
-            </div>
-            
-            <div class="form-group mb-3">
-                <label for="menu_card_4">Menu Card 4</label>
-                @if(isset($images['menu_card_4']))
-                    <div class="mb-2">
-                        <img src="{{ asset($images['menu_card_4']->image_path) }}" alt="Current" style="max-width: 100px; height: auto;">
-                    </div>
-                @endif
-                <input type="file" class="form-control" id="menu_card_4" name="menu_card_4" accept="image/*">
-            </div>
+            @endforeach
         </div>
     </div>
     

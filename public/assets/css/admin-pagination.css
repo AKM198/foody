@@ -1,0 +1,42 @@
+/* Admin Pagination Styles */
+.pagination {
+    margin: 20px 0;
+    justify-content: center;
+}
+
+.pagination .page-item {
+    margin: 0 2px;
+}
+
+.pagination .page-link {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    color: #333;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+.pagination .page-link:hover {
+    background-color: #f8f9fa;
+    border-color: #ddd;
+    color: #333;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #6c757d;
+    background-color: #fff;
+    border-color: #dee2e6;
+}
+
+/* Make pagination smaller and more compact */
+.pagination-sm .page-link {
+    padding: 5px 8px;
+    font-size: 12px;
+}

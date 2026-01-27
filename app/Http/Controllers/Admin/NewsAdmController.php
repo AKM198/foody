@@ -10,7 +10,7 @@ class NewsAdmController extends Controller
 {
     public function index()
     {
-        $news = News::latest()->paginate(10);
+        $news = News::latest()->paginate(5);
         return view('admin.news.index', compact('news'));
     }
     
@@ -27,15 +27,20 @@ class NewsAdmController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
         
-        $imagePath = $request->file('image')->store('news', 'public');
+        if ($request->hasFile('image')) {
+            $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+            $request->file('image')->move(public_path('storage/news'), $imageName);
+            
+            News::create([
+                'title' => $request->title,
+                'content' => $request->content,
+                'image_path' => 'storage/news/' . $imageName
+            ]);
+            
+            return redirect()->route('admin.news.index')->with('success', 'News created successfully!');
+        }
         
-        News::create([
-            'title' => $request->title,
-            'content' => $request->content,
-            'image_path' => 'storage/' . $imagePath
-        ]);
-        
-        return redirect()->route('admin.news.index')->with('success', 'News created successfully!');
+        return redirect()->back()->withErrors(['image' => 'The image failed to upload.'])->withInput();
     }
     
     public function edit(News $news)
@@ -57,8 +62,9 @@ class NewsAdmController extends Controller
         ];
         
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('news', 'public');
-            $data['image_path'] = 'storage/' . $imagePath;
+            $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+            $request->file('image')->move(public_path('storage/news'), $imageName);
+            $data['image_path'] = 'storage/news/' . $imageName;
         }
         
         $news->update($data);

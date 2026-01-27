@@ -1,6 +1,6 @@
 @extends('layouts.foody')
 
-@section('title', 'TASTY FOOD - Galeri')
+@section('title', 'FOODY - Galeri')
 
 @section('content')
 <!-- Header Section with Banner2 Background -->
@@ -35,46 +35,63 @@
 <section class="product-grid-section">
     <div class="container">
         <div class="row">
-            @foreach($products as $product)
+            @foreach($galleries as $gallery)
             <div class="col-md-3 col-sm-6 mb-4">
                 <div class="product-card">
-                    <img src="{{ $product->image }}" alt="{{ $product->name }}" class="product-image">
+                    @if(Str::startsWith($gallery->image_path, 'http'))
+                        <img src="{{ $gallery->image_path }}" alt="{{ $gallery->name }}" class="product-image">
+                    @else
+                        <img src="{{ asset($gallery->image_path) }}" alt="{{ $gallery->name }}" class="product-image">
+                    @endif
                 </div>
             </div>
             @endforeach
+        </div>
+        <!-- No pagination needed since we show all items -->
         </div>
     </div>
 </section>
 
 <script>
 let currentSlide = 0;
-const products = {!! json_encode($products->map(function($product) {
-    return [
-        'id' => $product->id,
-        'name' => $product->name,
-        'image' => $product->image
-    ];
-})) !!};
+const galleries = {!! json_encode($galleries->toArray()) !!}.map(function(gallery) {
+    let imagePath = gallery.image_path;
+    if (imagePath.startsWith('http')) {
+        return {
+            id: gallery.id,
+            name: gallery.name,
+            image: imagePath
+        };
+    } else {
+        return {
+            id: gallery.id,
+            name: gallery.name,
+            image: '{{ asset('') }}' + imagePath
+        };
+    }
+});
 
 function showSlide(index) {
-    if (products.length > 0) {
-        document.getElementById('carouselImage').src = products[index].image;
+    if (galleries.length > 0) {
+        const img = document.getElementById('carouselImage');
+        img.src = galleries[index].image;
+        img.alt = galleries[index].name;
     }
 }
 
 function nextSlide() {
-    currentSlide = (currentSlide + 1) % products.length;
+    currentSlide = (currentSlide + 1) % galleries.length;
     showSlide(currentSlide);
 }
 
 function prevSlide() {
-    currentSlide = (currentSlide - 1 + products.length) % products.length;
+    currentSlide = (currentSlide - 1 + galleries.length) % galleries.length;
     showSlide(currentSlide);
 }
 
 // Initialize carousel
 document.addEventListener('DOMContentLoaded', function() {
-    if (products.length > 0) {
+    if (galleries.length > 0) {
         showSlide(0);
     }
 });

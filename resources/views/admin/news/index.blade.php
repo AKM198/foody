@@ -17,7 +17,7 @@
     <table class="table admin-table">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>No</th>
                 <th>Gambar</th>
                 <th>Judul</th>
                 <th>Konten</th>
@@ -26,9 +26,9 @@
             </tr>
         </thead>
         <tbody>
-            @forelse($news as $item)
+            @forelse($news as $index => $item)
             <tr>
-                <td>{{ $item->id }}</td>
+                <td>{{ $news->firstItem() + $index }}</td>
                 <td>
                     @if($item->image_path)
                         <img src="{{ asset($item->image_path) }}" alt="{{ $item->title }}" style="width: 60px; height: 40px; object-fit: cover;">
@@ -61,5 +61,5 @@
     </table>
 </div>
 
-{{ $news->links() }}
+{{ $news->links('pagination::bootstrap-4') }}
 @endsection

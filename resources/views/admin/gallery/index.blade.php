@@ -17,7 +17,7 @@
     <table class="table admin-table">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>No</th>
                 <th>Gambar</th>
                 <th>Judul</th>
                 <th>Deskripsi</th>
@@ -26,17 +26,21 @@
             </tr>
         </thead>
         <tbody>
-            @forelse($galleries as $item)
+            @forelse($galleries as $index => $item)
             <tr>
-                <td>{{ $item->id }}</td>
+                <td>{{ $galleries->firstItem() + $index }}</td>
                 <td>
                     @if($item->image_path)
-                        <img src="{{ asset($item->image_path) }}" alt="{{ $item->title }}" style="width: 60px; height: 40px; object-fit: cover;">
+                        @if(Str::startsWith($item->image_path, 'http'))
+                            <img src="{{ $item->image_path }}" alt="{{ $item->name }}" style="width: 60px; height: 40px; object-fit: cover;">
+                        @else
+                            <img src="{{ asset($item->image_path) }}" alt="{{ $item->name }}" style="width: 60px; height: 40px; object-fit: cover;">
+                        @endif
                     @else
                         <span class="text-muted">No Image</span>
                     @endif
                 </td>
-                <td>{{ Str::limit($item->title, 30) }}</td>
+                <td>{{ Str::limit($item->name, 30) }}</td>
                 <td>{{ Str::limit($item->description, 50) }}</td>
                 <td>{{ $item->created_at->format('d/m/Y') }}</td>
                 <td>
@@ -61,5 +65,5 @@
     </table>
 </div>
 
-{{ $galleries->links() }}
+{{ $galleries->links('pagination::bootstrap-4') }}
 @endsection

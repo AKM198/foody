@@ -7,9 +7,9 @@
     @csrf
     
     <div class="form-group mb-3">
-        <label for="title">Judul</label>
-        <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title') }}" required>
-        @error('title')
+        <label for="name">Judul</label>
+        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" required>
+        @error('name')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>

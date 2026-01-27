@@ -9,7 +9,7 @@ class GalleryController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
-        return view('gallery.gallery', compact('products'));
+        $galleries = Product::where('category', 'gallery')->latest()->get();
+        return view('gallery.gallery', compact('galleries'));
     }
 }

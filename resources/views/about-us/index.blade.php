@@ -1,6 +1,6 @@
 @extends('layouts.foody')
 
-@section('title', 'TASTY FOOD - Tentang Kami')
+@section('title', 'FOODY - Tentang Kami')
 
 @section('content')
 <!-- Header Section with Banner2 Background -->
@@ -22,7 +22,7 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="about-text-content">
-                    <h2 class="about-section-title">TASTY FOOD</h2>
+                    <h2 class="about-section-title">FOODY</h2>
                     <p class="about-paragraph">
                         {{ $pageContents['tasty_food_content']->content_value ?? 'Tasty Food adalah perusahaan kuliner terdepan yang berkomitmen menghadirkan makanan sehat dan bergizi untuk keluarga Indonesia. Sejak didirikan, kami telah melayani ribuan pelanggan dengan standar kualitas tertinggi dalam setiap hidangan yang kami sajikan.' }}
                     </p>
@@ -31,10 +31,10 @@
             <div class="col-lg-6">
                 <div class="about-images-grid">
                     <div class="about-image-item">
-                        <img src="{{ asset('assets/images/homemade3.jpg') }}" alt="Tasty Food" class="about-img">
+                        <img src="{{ asset('assets/images/homemade3.jpg') }}" alt="Foody" class="about-img">
                     </div>
                     <div class="about-image-item">
-                        <img src="{{ asset('assets/images/cooking3.jpg') }}" alt="Tasty Food" class="about-img">
+                        <img src="{{ asset('assets/images/cooking3.jpg') }}" alt="Foody" class="about-img">
                     </div>
                 </div>
             </div>
