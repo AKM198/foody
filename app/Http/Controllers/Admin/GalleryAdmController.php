@@ -21,28 +21,43 @@ class GalleryAdmController extends Controller
     
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|max:255',
-            'description' => 'nullable',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
-        ]);
-        
-        if ($request->hasFile('image')) {
-            $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
-            $request->file('image')->move(public_path('storage/gallery'), $imageName);
-            
-            Product::create([
-                'name' => $request->name,
-                'description' => $request->description,
-                'price' => 0,
-                'image_path' => 'storage/gallery/' . $imageName,
-                'category' => 'gallery'
+        try {
+            $request->validate([
+                'name' => 'required|max:255|unique:products,name',
+                'description' => 'nullable',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            ], [
+                'name.unique' => 'Nama galeri sudah ada di database.',
+                'image.max' => 'Ukuran gambar terlalu besar. Maksimal 2MB.',
+                'image.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif.',
+                'image.required' => 'Gambar wajib diupload.'
             ]);
             
-            return redirect()->route('admin.gallery.index')->with('success', 'Gallery created successfully!');
+            if ($request->hasFile('image')) {
+                $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+                
+                // Check if file already exists
+                if (file_exists(public_path('storage/gallery/' . $imageName))) {
+                    return redirect()->back()->withErrors(['image' => 'File gambar dengan nama yang sama sudah ada.'])->withInput();
+                }
+                
+                $request->file('image')->move(public_path('storage/gallery'), $imageName);
+                
+                Product::create([
+                    'name' => $request->name,
+                    'description' => $request->description,
+                    'price' => 0,
+                    'image_path' => 'storage/gallery/' . $imageName,
+                    'category' => 'gallery'
+                ]);
+                
+                return redirect()->route('admin.gallery.index')->with('success', 'Galeri berhasil ditambahkan!');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()])->withInput();
         }
         
-        return redirect()->back()->withErrors(['image' => 'The image failed to upload.'])->withInput();
+        return redirect()->back()->withErrors(['image' => 'Gagal mengupload gambar.'])->withInput();
     }
     
     public function edit(Product $gallery)
@@ -52,26 +67,40 @@ class GalleryAdmController extends Controller
     
     public function update(Request $request, Product $gallery)
     {
-        $request->validate([
-            'name' => 'required|max:255',
-            'description' => 'nullable',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
-        ]);
-        
-        $data = [
-            'name' => $request->name,
-            'description' => $request->description
-        ];
-        
-        if ($request->hasFile('image')) {
-            $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
-            $request->file('image')->move(public_path('storage/gallery'), $imageName);
-            $data['image_path'] = 'storage/gallery/' . $imageName;
+        try {
+            $request->validate([
+                'name' => 'required|max:255|unique:products,name,' . $gallery->id,
+                'description' => 'nullable',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            ], [
+                'name.unique' => 'Nama galeri sudah ada di database.',
+                'image.max' => 'Ukuran gambar terlalu besar. Maksimal 2MB.',
+                'image.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif.'
+            ]);
+            
+            $data = [
+                'name' => $request->name,
+                'description' => $request->description
+            ];
+            
+            if ($request->hasFile('image')) {
+                $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+                
+                // Check if file already exists
+                if (file_exists(public_path('storage/gallery/' . $imageName))) {
+                    return redirect()->back()->withErrors(['image' => 'File gambar dengan nama yang sama sudah ada.'])->withInput();
+                }
+                
+                $request->file('image')->move(public_path('storage/gallery'), $imageName);
+                $data['image_path'] = 'storage/gallery/' . $imageName;
+            }
+            
+            $gallery->update($data);
+            
+            return redirect()->route('admin.gallery.index')->with('success', 'Galeri berhasil diupdate!');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()])->withInput();
         }
-        
-        $gallery->update($data);
-        
-        return redirect()->route('admin.gallery.index')->with('success', 'Gallery updated successfully!');
     }
     
     public function destroy(Product $gallery)

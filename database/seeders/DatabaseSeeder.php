@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             AboutSeeder::class,
             ProductSeeder::class,
             HomePageSeeder::class,
+            DefaultMenuImagesSeeder::class,
         ]);
     }
 }

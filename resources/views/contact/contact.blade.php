@@ -87,7 +87,7 @@
                         <i class="fas fa-map-marker-alt"></i>
                     </div>
                     <h4 class="contact-info-title">ADDRESS</h4>
-                    <p class="contact-info-text">Jl. Babakan Jeruk II No.9, Pasteur<br>Kec. Sukajadi, Kota Bandung<br>Jawa Barat 40161</p>
+                    <p class="contact-info-text">{{ $contactInfo['address'] ?? 'Jl. Babakan Jeruk II No.9, Pasteur\nKec. Sukajadi, Kota Bandung\nJawa Barat 40161' }}</p>
                 </div>
             </div>
             <div class="col-lg-4 mb-4">
@@ -96,7 +96,7 @@
                         <i class="fas fa-phone"></i>
                     </div>
                     <h4 class="contact-info-title">PHONE</h4>
-                    <p class="contact-info-text">+62 822-1234-5678<br>+62 811-9876-5432</p>
+                    <p class="contact-info-text">{{ $contactInfo['phone'] ?? '+62 822-1234-5678' }}</p>
                 </div>
             </div>
             <div class="col-lg-4 mb-4">
@@ -105,7 +105,7 @@
                         <i class="fas fa-envelope"></i>
                     </div>
                     <h4 class="contact-info-title">EMAIL</h4>
-                    <p class="contact-info-text">info@foody.com<br>contact@foody.com</p>
+                    <p class="contact-info-text">{{ $contactInfo['email'] ?? 'info@foody.com' }}</p>
                 </div>
             </div>
         </div>
@@ -115,7 +115,7 @@
 <!-- Map Section -->
 <section class="py-0">
     <div class="container-fluid px-0">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d300.72595531967187!2d107.66393355737362!3d-6.943197775870065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e7c381e3c323%3A0x5f5160f6c9796e4b!2sCYBERLABS%20-%20Jasa%20Digital%20Marketing%20%7C%20Jasa%20Pembuatan%20Website%20%7C%20Jasa%20Pembuatan%20Aplikasi!5e0!3m2!1sid!2sid!4v1768879182825!5m2!1sid!2sid" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe src="{{ $mapUrl->content_value ?? 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d300.72595531967187!2d107.66393355737362!3d-6.943197775870065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e7c381e3c323%3A0x5f5160f6c9796e4b!2sCYBERLABS%20-%20Jasa%20Digital%20Marketing%20%7C%20Jasa%20Pembuatan%20Website%20%7C%20Jasa%20Pembuatan%20Aplikasi!5e0!3m2!1sid!2sid!4v1768879182825!5m2!1sid!2sid' }}" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 </section>
 @endsection

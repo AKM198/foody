@@ -21,26 +21,41 @@ class NewsAdmController extends Controller
     
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required|max:255',
-            'content' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
-        ]);
-        
-        if ($request->hasFile('image')) {
-            $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
-            $request->file('image')->move(public_path('storage/news'), $imageName);
-            
-            News::create([
-                'title' => $request->title,
-                'content' => $request->content,
-                'image_path' => 'storage/news/' . $imageName
+        try {
+            $request->validate([
+                'title' => 'required|max:255|unique:news,title',
+                'content' => 'required',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            ], [
+                'title.unique' => 'Judul berita sudah ada di database.',
+                'image.max' => 'Ukuran gambar terlalu besar. Maksimal 2MB.',
+                'image.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif.',
+                'image.required' => 'Gambar wajib diupload.'
             ]);
             
-            return redirect()->route('admin.news.index')->with('success', 'News created successfully!');
+            if ($request->hasFile('image')) {
+                $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+                
+                // Check if file already exists
+                if (file_exists(public_path('storage/news/' . $imageName))) {
+                    return redirect()->back()->withErrors(['image' => 'File gambar dengan nama yang sama sudah ada.'])->withInput();
+                }
+                
+                $request->file('image')->move(public_path('storage/news'), $imageName);
+                
+                News::create([
+                    'title' => $request->title,
+                    'content' => $request->content,
+                    'image_path' => 'storage/news/' . $imageName
+                ]);
+                
+                return redirect()->route('admin.news.index')->with('success', 'Berita berhasil ditambahkan!');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()])->withInput();
         }
         
-        return redirect()->back()->withErrors(['image' => 'The image failed to upload.'])->withInput();
+        return redirect()->back()->withErrors(['image' => 'Gagal mengupload gambar.'])->withInput();
     }
     
     public function edit(News $news)
@@ -50,26 +65,40 @@ class NewsAdmController extends Controller
     
     public function update(Request $request, News $news)
     {
-        $request->validate([
-            'title' => 'required|max:255',
-            'content' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
-        ]);
-        
-        $data = [
-            'title' => $request->title,
-            'content' => $request->content
-        ];
-        
-        if ($request->hasFile('image')) {
-            $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
-            $request->file('image')->move(public_path('storage/news'), $imageName);
-            $data['image_path'] = 'storage/news/' . $imageName;
+        try {
+            $request->validate([
+                'title' => 'required|max:255|unique:news,title,' . $news->id,
+                'content' => 'required',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            ], [
+                'title.unique' => 'Judul berita sudah ada di database.',
+                'image.max' => 'Ukuran gambar terlalu besar. Maksimal 2MB.',
+                'image.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif.'
+            ]);
+            
+            $data = [
+                'title' => $request->title,
+                'content' => $request->content
+            ];
+            
+            if ($request->hasFile('image')) {
+                $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+                
+                // Check if file already exists
+                if (file_exists(public_path('storage/news/' . $imageName))) {
+                    return redirect()->back()->withErrors(['image' => 'File gambar dengan nama yang sama sudah ada.'])->withInput();
+                }
+                
+                $request->file('image')->move(public_path('storage/news'), $imageName);
+                $data['image_path'] = 'storage/news/' . $imageName;
+            }
+            
+            $news->update($data);
+            
+            return redirect()->route('admin.news.index')->with('success', 'Berita berhasil diupdate!');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()])->withInput();
         }
-        
-        $news->update($data);
-        
-        return redirect()->route('admin.news.index')->with('success', 'News updated successfully!');
     }
     
     public function destroy(News $news)

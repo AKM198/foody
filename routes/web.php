@@ -61,7 +61,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
     
     // Contacts
     Route::get('/contacts', [ContactsAdmController::class, 'index'])->name('contacts.index');
+    Route::get('/contacts/all', [ContactsAdmController::class, 'all'])->name('contacts.all');
     Route::delete('/contacts/{contact}', [ContactsAdmController::class, 'destroy'])->name('contacts.destroy');
+    Route::get('/contacts/settings', [ContactsAdmController::class, 'contactSettings'])->name('contacts.settings');
+    Route::put('/contacts/settings', [ContactsAdmController::class, 'updateContactSettings'])->name('contacts.settings.update');
     
     // Page Management Routes
     Route::get('/home', [HomeAdmController::class, 'edit'])->name('home.edit');

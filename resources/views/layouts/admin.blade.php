@@ -44,6 +44,27 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('assets/admin/js/admin.js') }}"></script>
+    <script>
+        // Auto-hide success alerts after 5 seconds
+        document.addEventListener('DOMContentLoaded', function() {
+            const successAlert = document.getElementById('successAlert');
+            const errorAlert = document.getElementById('errorAlert');
+            
+            if (successAlert) {
+                setTimeout(function() {
+                    const alert = new bootstrap.Alert(successAlert);
+                    alert.close();
+                }, 5000);
+            }
+            
+            if (errorAlert) {
+                setTimeout(function() {
+                    const alert = new bootstrap.Alert(errorAlert);
+                    alert.close();
+                }, 8000);
+            }
+        });
+    </script>
     @yield('scripts')
 </body>
 </html>

@@ -1,19 +1,11 @@
 @extends('layouts.admin')
 
-@section('title', 'Kelola Kontak')
+@section('title', 'Semua Data Kontak')
 
 @section('content')
-@if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show" id="successAlert">
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-@endif
-
-<div class="mb-3 d-flex justify-content-between align-items-center">
-    <h4>Data Kontak Masuk</h4>
-    <a href="{{ route('admin.contacts.all') }}" class="btn btn-info">
-        <i class="fas fa-eye me-2"></i>Lihat Semua Data
+<div class="mb-3">
+    <a href="{{ route('admin.contacts.index') }}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left me-2"></i>Kembali
     </a>
 </div>
 

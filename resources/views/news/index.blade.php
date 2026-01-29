@@ -50,8 +50,8 @@
                 <div class="news-card small-card">
                     <img src="{{ asset($article->image_path) }}" alt="{{ $article->title }}" class="news-image">
                     <div class="news-content">
-                        <h4 class="news-title">{{ strtoupper($article->title) }}</h4>
-                        <p class="news-excerpt">{{ Str::limit(strip_tags($article->content), 100) }}</p>
+                        <h4 class="news-title">{{ strtoupper(Str::limit($article->title, 30)) }}</h4>
+                        <p class="news-excerpt">{{ Str::limit(strip_tags($article->content), 50) }}</p>
                         <div class="news-footer">
                             <div class="news-footer-bottom">
                                 <a href="#" class="read-more" data-bs-toggle="modal" data-bs-target="#newsModal{{ $article->id }}">Baca selengkapnya</a>

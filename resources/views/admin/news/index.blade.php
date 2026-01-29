@@ -4,13 +4,32 @@
 
 @section('content')
 @if(session('success'))
-    <div class="alert alert-success">{{ session('success') }}</div>
+    <div class="alert alert-success alert-dismissible fade show" id="successAlert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
 @endif
 
-<div class="mb-3">
-    <a href="{{ route('admin.news.create') }}" class="btn btn-primary">
-        <i class="fas fa-plus me-2"></i>Tambah Berita
-    </a>
+@if($errors->any())
+    <div class="alert alert-danger alert-dismissible fade show" id="errorAlert">
+        <ul class="mb-0">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+@endif
+
+<div class="mb-3 d-flex justify-content-between align-items-center">
+    <div>
+        <a href="{{ route('admin.news.create') }}" class="btn btn-primary me-2">
+            <i class="fas fa-plus me-2"></i>Tambah Berita
+        </a>
+        <a href="{{ route('admin.contacts.settings') }}" class="btn btn-info">
+            <i class="fas fa-cog me-2"></i>Pengaturan Kontak
+        </a>
+    </div>
 </div>
 
 <div class="table-responsive">
