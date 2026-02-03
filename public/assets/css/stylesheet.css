@@ -620,6 +620,7 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
 
 /* About Us Page */
 .about-header {
+    background-image: url('../images/banner2.png');
     background-size: cover;
     background-position: center;
     padding: 250px 0 250px 0;
@@ -975,13 +976,90 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
     margin-bottom: 70px;
 }
 
+/* Use same news-row and news-col as welcome page */
+.other-news-section .news-row {
+    margin: 0 -5px;
+}
+
+.other-news-section .news-col {
+    padding: 0 5px;
+    margin-bottom: 10px;
+}
+
+.other-news-section .news-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.other-news-section .news-card.small-card {
+    height: 400px;
+}
+
+.other-news-section .news-card.small-card .news-image {
+    height: 180px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.other-news-section .news-content {
+    padding: 30px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.other-news-section .news-title {
+    font-family: Arial, sans-serif;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 10px;
+    line-height: 1.3;
+    font-size: 1.4rem;
+}
+
+.other-news-section .news-excerpt {
+    font-family: Arial, sans-serif;
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    flex-grow: 1;
+}
+
+.other-news-section .news-footer {
+    margin-top: auto;
+}
+
+.other-news-section .news-footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.other-news-section .read-more {
+    color: #ff9500;
+    font-weight: 400;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.other-news-section .news-dots {
+    color: #ccc;
+    font-size: 1.2rem;
+}
+
 .news-cards-row {
     margin: 0 -15px;
 }
 
 .news-card-col {
-    padding: 0 15px;
-    margin-bottom: 30px;
+    padding: 0 -15px;
+    margin-bottom: -5px;
 }
 
 .news-card {
@@ -1258,6 +1336,22 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
 }
 
 @media (max-width: 768px) {
+    .product-carousel-container {
+        padding: 0 60px;
+    }
+    
+    .carousel-nav.prev {
+        left: -50px;
+    }
+    
+    .carousel-nav.next {
+        right: -50px;
+    }
+    
+    .product-carousel-wrapper {
+        height: 300px;
+    }
+    
     .main-image-container {
         height: 300px;
         padding: 20px;
@@ -1275,7 +1369,7 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
 }
 
 .product-carousel-container {
-    max-width: 1200px;
+    max-width: 1320px;
     margin: 0 auto;
 }
 
@@ -1326,11 +1420,11 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
 }
 
 .carousel-nav.prev {
-    left: -30px;
+    left: 20px;
 }
 
 .carousel-nav.next {
-    right: -30px;
+    right: 20px;
 }
 
 .carousel-nav:hover {
@@ -1342,6 +1436,15 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
 .product-grid-section {
     background: #fff;
     padding: 80px 0;
+}
+
+.product-grid-section .row {
+    margin: 0 -5px;
+}
+
+.product-grid-section .col-md-3 {
+    padding: 0 5px;
+    margin-bottom: 10px;
 }
 
 .product-card {

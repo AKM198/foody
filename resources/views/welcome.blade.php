@@ -58,10 +58,9 @@
                         <img src="{{ asset($sections['menu_card_1']->current_img ?? 'assets/images/healty1.png') }}" alt="Menu" class="menu-image">
                     </div>
                     <div class="menu-content">
-                        <h4 class="menu-title">MAKANAN SEHAT</h4>
+                        <h4 class="menu-title">{{ $sections['menu_card_1']->title ?? 'MAKANAN SEHAT' }}</h4>
                         <p class="menu-description">
-                            Hidangan bergizi tinggi yang diolah dengan teknik memasak modern 
-                            untuk mempertahankan kandungan vitamin dan mineral alami.
+                            {{ $sections['menu_card_1']->content ?? 'Hidangan bergizi tinggi yang diolah dengan teknik memasak modern untuk mempertahankan kandungan vitamin dan mineral alami.' }}
                         </p>
                     </div>
                 </div>
@@ -72,10 +71,9 @@
                         <img src="{{ asset($sections['menu_card_2']->current_img ?? 'assets/images/healty2.png') }}" alt="Menu" class="menu-image">
                     </div>
                     <div class="menu-content">
-                        <h4 class="menu-title">MAKANAN SEGAR</h4>
+                        <h4 class="menu-title">{{ $sections['menu_card_2']->title ?? 'MAKANAN SEGAR' }}</h4>
                         <p class="menu-description">
-                            Bahan-bahan segar pilihan yang dipetik langsung dari kebun organik 
-                            untuk menjamin kualitas dan kesegaran setiap hidangan.
+                            {{ $sections['menu_card_2']->content ?? 'Bahan-bahan segar pilihan yang dipetik langsung dari kebun organik untuk menjamin kualitas dan kesegaran setiap hidangan.' }}
                         </p>
                     </div>
                 </div>
@@ -86,10 +84,9 @@
                         <img src="{{ asset($sections['menu_card_3']->current_img ?? 'assets/images/healty3.png') }}" alt="Menu" class="menu-image">
                     </div>
                     <div class="menu-content">
-                        <h4 class="menu-title">MAKANAN BERGIZI</h4>
+                        <h4 class="menu-title">{{ $sections['menu_card_3']->title ?? 'MAKANAN BERGIZI' }}</h4>
                         <p class="menu-description">
-                            Menu seimbang dengan kandungan protein, karbohidrat, dan vitamin 
-                            yang tepat untuk mendukung gaya hidup sehat keluarga.
+                            {{ $sections['menu_card_3']->content ?? 'Menu seimbang dengan kandungan protein, karbohidrat, dan vitamin yang tepat untuk mendukung gaya hidup sehat keluarga.' }}
                         </p>
                     </div>
                 </div>
@@ -100,10 +97,9 @@
                         <img src="{{ asset($sections['menu_card_4']->current_img ?? 'assets/images/street3.png') }}" alt="Menu" class="menu-image">
                     </div>
                     <div class="menu-content">
-                        <h4 class="menu-title">MAKANAN LEZAT</h4>
+                        <h4 class="menu-title">{{ $sections['menu_card_4']->title ?? 'MAKANAN LEZAT' }}</h4>
                         <p class="menu-description">
-                            Cita rasa autentik yang memadukan resep tradisional dengan 
-                            sentuhan modern untuk pengalaman kuliner yang tak terlupakan.
+                            {{ $sections['menu_card_4']->content ?? 'Cita rasa autentik yang memadukan resep tradisional dengan sentuhan modern untuk pengalaman kuliner yang tak terlupakan.' }}
                         </p>
                     </div>
                 </div>

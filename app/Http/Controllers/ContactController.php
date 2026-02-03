@@ -10,13 +10,14 @@ class ContactController extends Controller
 {
     public function index()
     {
-        $contactInfo = PageContent::where('page_name', 'contact')
-            ->where('section_name', 'contact_info')
-            ->pluck('content_value', 'content_type');
+        $contactInfo = [
+            'address' => PageContent::where('page_name', 'contact')->where('section_name', 'address')->value('content_value'),
+            'phone' => PageContent::where('page_name', 'contact')->where('section_name', 'phone')->value('content_value'),
+            'email' => PageContent::where('page_name', 'contact')->where('section_name', 'email')->value('content_value')
+        ];
             
         $mapUrl = PageContent::where('page_name', 'contact')
-            ->where('section_name', 'map')
-            ->where('content_type', 'url')
+            ->where('section_name', 'map_url')
             ->first();
             
         $showSettings = request()->has('settings');

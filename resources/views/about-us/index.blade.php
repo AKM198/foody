@@ -33,6 +33,11 @@
                     <div class="about-image-item">
                         <img src="{{ asset($sections['tasty_food']->current_img ?? 'assets/images/homemade3.jpg') }}" alt="Foody" class="about-img">
                     </div>
+                    @if($sections['tasty_food']->current_img_2)
+                    <div class="about-image-item">
+                        <img src="{{ asset($sections['tasty_food']->current_img_2) }}" alt="Foody 2" class="about-img">
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -48,6 +53,11 @@
                     <div class="about-image-item">
                         <img src="{{ asset($sections['visi']->current_img ?? 'assets/images/homemade6.jpg') }}" alt="Visi" class="about-img">
                     </div>
+                    @if($sections['visi']->current_img_2)
+                    <div class="about-image-item">
+                        <img src="{{ asset($sections['visi']->current_img_2) }}" alt="Visi 2" class="about-img">
+                    </div>
+                    @endif
                 </div>
             </div>
             <div class="col-lg-6">

@@ -10,7 +10,7 @@ class GalleryAdmController extends Controller
 {
     public function index()
     {
-        $galleries = Product::where('category', 'gallery')->latest()->paginate(6);
+        $galleries = Product::where('category', 'gallery')->latest()->paginate(5);
         return view('admin.gallery.index', compact('galleries'));
     }
     

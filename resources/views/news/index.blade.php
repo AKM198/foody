@@ -43,15 +43,15 @@
     <div class="container">
         <h2>BERITA LAINNYA</h2>
         
-        <div class="news-cards-row row">
+        <div class="row news-row">
             @php $otherNews = $news->skip(1); @endphp
             @forelse($otherNews as $article)
-            <div class="news-card-col col-lg-3 col-md-6 mb-4">
+            <div class="col-md-3 news-col">
                 <div class="news-card small-card">
                     <img src="{{ asset($article->image_path) }}" alt="{{ $article->title }}" class="news-image">
                     <div class="news-content">
-                        <h4 class="news-title">{{ strtoupper(Str::limit($article->title, 30)) }}</h4>
-                        <p class="news-excerpt">{{ Str::limit(strip_tags($article->content), 50) }}</p>
+                        <h4 class="news-title">{{ strtoupper(Str::limit($article->title, 20)) }}</h4>
+                        <p class="news-excerpt">{{ Str::limit(strip_tags($article->content), 80) }}</p>
                         <div class="news-footer">
                             <div class="news-footer-bottom">
                                 <a href="#" class="read-more" data-bs-toggle="modal" data-bs-target="#newsModal{{ $article->id }}">Baca selengkapnya</a>
@@ -67,27 +67,8 @@
             </div>
             @endforelse
         </div>
-        
-        <!-- Pagination Links -->
-        <div class="d-flex justify-content-center mt-4">
-            {{ $news->links('pagination::bootstrap-4') }}
-        </div>
     </div>
 </section>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const showAllBtn = document.getElementById('showAllNews');
-    const hiddenCards = document.getElementById('hiddenNewsCards');
-    
-    if (showAllBtn && hiddenCards) {
-        showAllBtn.addEventListener('click', function() {
-            hiddenCards.style.display = 'flex';
-            showAllBtn.style.display = 'none';
-        });
-    }
-});
-</script>
 
 <!-- News Modals -->
 @foreach($news as $article)
@@ -117,6 +98,5 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
 </div>
 @endforeach
-
 
 @endsection

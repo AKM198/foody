@@ -8,7 +8,7 @@
                     <h2 class="footer-brand-title" style="margin: 0;">FOODY</h2>
                 </div>
                 <p class="footer-description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Foody adalah platform kuliner terpercaya yang menghadirkan cita rasa autentik Indonesia dengan bahan-bahan segar berkualitas tinggi. Kami berkomitmen memberikan pengalaman kuliner terbaik untuk keluarga Indonesia melalui hidangan sehat dan bergizi.
                 </p>
                 <div class="footer-social">
                     <a href="#" class="social-icon facebook">

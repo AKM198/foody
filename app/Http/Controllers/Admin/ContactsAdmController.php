@@ -12,7 +12,18 @@ class ContactsAdmController extends Controller
     public function index()
     {
         $contacts = Contact::latest()->paginate(10);
-        return view('admin.contacts.index', compact('contacts'));
+        
+        $contactInfo = [
+            'address' => PageContent::where('page_name', 'contact')->where('section_name', 'address')->value('content_value'),
+            'phone' => PageContent::where('page_name', 'contact')->where('section_name', 'phone')->value('content_value'),
+            'email' => PageContent::where('page_name', 'contact')->where('section_name', 'email')->value('content_value')
+        ];
+            
+        $mapUrl = PageContent::where('page_name', 'contact')
+            ->where('section_name', 'map_url')
+            ->first();
+            
+        return view('admin.contacts.index', compact('contacts', 'contactInfo', 'mapUrl'));
     }
     
     public function all()
@@ -47,31 +58,33 @@ class ContactsAdmController extends Controller
             'address' => 'required',
             'phone' => 'required',
             'email' => 'required|email',
-            'map_url' => 'required|url'
+            'map_url' => 'nullable|url'
         ]);
         
-        // Update contact info
+        // Update contact info using different section names
         PageContent::updateOrCreate(
-            ['page_name' => 'contact', 'section_name' => 'contact_info', 'content_type' => 'address'],
-            ['content_value' => $request->address]
+            ['page_name' => 'contact', 'section_name' => 'address'],
+            ['content_type' => 'text', 'content_value' => $request->address]
         );
         
         PageContent::updateOrCreate(
-            ['page_name' => 'contact', 'section_name' => 'contact_info', 'content_type' => 'phone'],
-            ['content_value' => $request->phone]
+            ['page_name' => 'contact', 'section_name' => 'phone'],
+            ['content_type' => 'text', 'content_value' => $request->phone]
         );
         
         PageContent::updateOrCreate(
-            ['page_name' => 'contact', 'section_name' => 'contact_info', 'content_type' => 'email'],
-            ['content_value' => $request->email]
+            ['page_name' => 'contact', 'section_name' => 'email'],
+            ['content_type' => 'text', 'content_value' => $request->email]
         );
         
-        // Update map URL
-        PageContent::updateOrCreate(
-            ['page_name' => 'contact', 'section_name' => 'map', 'content_type' => 'url'],
-            ['content_value' => $request->map_url]
-        );
+        // Update map URL if provided
+        if ($request->map_url) {
+            PageContent::updateOrCreate(
+                ['page_name' => 'contact', 'section_name' => 'map_url'],
+                ['content_type' => 'url', 'content_value' => $request->map_url]
+            );
+        }
         
-        return redirect()->back()->with('success', 'Contact settings updated successfully!');
+        return redirect()->route('admin.contacts.index')->with('success', 'Contact settings updated successfully!');
     }
 }
