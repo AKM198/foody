@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg fixed-top" id="mainNavbar">
     <div class="container">
         <a href="{{ route('home') }}" class="navbar-brand">
-            <img src="{{ asset('assets/images/foodylogo.png') }}" alt="FOODY" style="height: 40px; margin-right: 10px;">
+            <img src="{{ asset('assets/images/foodylogodrk.png') }}" alt="FOODY" style="height: 40px; margin-right: 10px;" class="navbar-logo">
             <h1 class="brand-title">FOODY</h1>
         </a>
         

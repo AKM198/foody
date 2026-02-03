@@ -21,6 +21,7 @@ Route::get('/about', [AboutController::class, 'index'])->name('about.index');
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::put('/contact/settings', [ContactController::class, 'updateSettings'])->name('contact.settings.update');
 
 // API Routes
 Route::get('/api/search', function(\Illuminate\Http\Request $request) {
@@ -69,6 +70,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Page Management Routes
     Route::get('/home', [HomeAdmController::class, 'edit'])->name('home.edit');
     Route::put('/home', [HomeAdmController::class, 'update'])->name('home.update');
+    Route::post('/home/switch-image', [HomeAdmController::class, 'switchImage'])->name('home.switch-image');
     Route::get('/about', [AboutAdmController::class, 'edit'])->name('about.edit');
     Route::put('/about', [AboutAdmController::class, 'update'])->name('about.update');
+    Route::post('/about/switch-image', [AboutAdmController::class, 'switchImage'])->name('about.switch-image');
 });

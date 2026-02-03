@@ -7,92 +7,117 @@
     <div class="alert alert-success">{{ session('success') }}</div>
 @endif
 
-<form action="{{ route('admin.about.update') }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    @method('PUT')
-    
-    <div class="row">
-        <div class="col-md-6">
-            <h4>Content</h4>
-            
-            <div class="form-group mb-3">
-                <label for="header_title">Header Title</label>
-                <input type="text" class="form-control" id="header_title" name="header_title" 
-                       value="{{ $contents['header_title']->content_value ?? 'TENTANG KAMI' }}">
-            </div>
-            
-            <div class="form-group mb-3">
-                <label for="tasty_food_content">Tasty Food Content</label>
-                <textarea class="form-control" id="tasty_food_content" name="tasty_food_content" rows="6">{{ $contents['tasty_food_content']->content_value ?? 'Tasty Food adalah perusahaan yang bergerak di bidang kuliner...' }}</textarea>
-            </div>
-            
-            <div class="form-group mb-3">
-                <label for="visi_content">Visi Content</label>
-                <textarea class="form-control" id="visi_content" name="visi_content" rows="4">{{ $contents['visi_content']->content_value ?? 'Menjadi perusahaan kuliner terdepan...' }}</textarea>
-            </div>
-            
-            <div class="form-group mb-3">
-                <label for="misi_content">Misi Content</label>
-                <textarea class="form-control" id="misi_content" name="misi_content" rows="6">{{ $contents['misi_content']->content_value ?? 'Menyediakan makanan berkualitas tinggi...' }}</textarea>
-            </div>
-        </div>
-        
-        <div class="col-md-6">
-            <h4>Images</h4>
-            
-            <div class="form-group mb-3">
-                <label for="tasty_food_image_1">Tasty Food Image 1</label>
-                @if(isset($images['tasty_food_image_1']))
-                    <div class="mb-2">
-                        <img src="{{ asset($images['tasty_food_image_1']->image_path) }}" alt="Current" style="max-width: 100px; height: auto;">
-                    </div>
-                @endif
-                <input type="file" class="form-control" id="tasty_food_image_1" name="tasty_food_image_1" accept="image/*">
-            </div>
-            
-            <div class="form-group mb-3">
-                <label for="tasty_food_image_2">Tasty Food Image 2</label>
-                @if(isset($images['tasty_food_image_2']))
-                    <div class="mb-2">
-                        <img src="{{ asset($images['tasty_food_image_2']->image_path) }}" alt="Current" style="max-width: 100px; height: auto;">
-                    </div>
-                @endif
-                <input type="file" class="form-control" id="tasty_food_image_2" name="tasty_food_image_2" accept="image/*">
-            </div>
-            
-            <div class="form-group mb-3">
-                <label for="visi_image_1">Visi Image 1</label>
-                @if(isset($images['visi_image_1']))
-                    <div class="mb-2">
-                        <img src="{{ asset($images['visi_image_1']->image_path) }}" alt="Current" style="max-width: 100px; height: auto;">
-                    </div>
-                @endif
-                <input type="file" class="form-control" id="visi_image_1" name="visi_image_1" accept="image/*">
-            </div>
-            
-            <div class="form-group mb-3">
-                <label for="visi_image_2">Visi Image 2</label>
-                @if(isset($images['visi_image_2']))
-                    <div class="mb-2">
-                        <img src="{{ asset($images['visi_image_2']->image_path) }}" alt="Current" style="max-width: 100px; height: auto;">
-                    </div>
-                @endif
-                <input type="file" class="form-control" id="visi_image_2" name="visi_image_2" accept="image/*">
-            </div>
-            
-            <div class="form-group mb-3">
-                <label for="misi_image">Misi Image</label>
-                @if(isset($images['misi_image']))
-                    <div class="mb-2">
-                        <img src="{{ asset($images['misi_image']->image_path) }}" alt="Current" style="max-width: 100px; height: auto;">
-                    </div>
-                @endif
-                <input type="file" class="form-control" id="misi_image" name="misi_image" accept="image/*">
-            </div>
-        </div>
+@foreach($aboutSections as $key => $section)
+<div class="card mb-4">
+    <div class="card-header">
+        <h5>{{ ucfirst(str_replace('_', ' ', $key)) }} Section</h5>
     </div>
-    
-    <button type="submit" class="btn btn-primary">Update About Page</button>
-    <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
-</form>
+    <div class="card-body">
+        <form action="{{ route('admin.about.update') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            <input type="hidden" name="section" value="{{ $key }}">
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label>Title</label>
+                        <input type="text" class="form-control" name="title" value="{{ $section->title }}">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label>Content</label>
+                        <textarea class="form-control" name="content" rows="3">{{ $section->content }}</textarea>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="image-section">
+                        <div class="current-image mb-3">
+                            <label>Current Image</label>
+                            <img id="current_{{ $key }}" src="{{ asset($section->current_img) }}" class="current-img">
+                        </div>
+                        
+                        <div class="previous-images mb-3">
+                            <label>Previous Images (Click to switch)</label>
+                            <div class="prev-grid">
+                                @foreach($section->getPreviousImages() as $index => $prevImg)
+                                    <img src="{{ asset($prevImg) }}" class="prev-img" onclick="switchImage('{{ $key }}', {{ $index }})">
+                                @endforeach
+                            </div>
+                        </div>
+                        
+                        <input type="file" class="form-control" name="image" accept="image/*" onchange="previewImage(this, '{{ $key }}')">
+                    </div>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Update {{ ucfirst($key) }}</button>
+        </form>
+    </div>
+</div>
+@endforeach
+
+<style>
+.current-img {
+    width: 200px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid #007bff;
+}
+
+.prev-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+    max-width: 200px;
+}
+
+.prev-img {
+    width: 95px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.prev-img:hover {
+    border-color: #007bff;
+    transform: scale(1.05);
+}
+</style>
+
+<script>
+function previewImage(input, section) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('current_' + section).src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function switchImage(section, prevIndex) {
+    fetch('{{ route("admin.about.switch-image") }}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: JSON.stringify({
+            section: section,
+            prev_index: prevIndex
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        }
+    });
+}
+</script>
 @endsection

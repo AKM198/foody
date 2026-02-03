@@ -16,6 +16,62 @@
     </div>
 </section>
 
+@if($showSettings ?? false)
+<!-- Contact Settings Form -->
+<section class="contact-form-section">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="contact-form-container">
+                    @if(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+                        <i class="fa fa-check-circle me-2"></i>{{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    @endif
+                    
+                    <h2 class="contact-form-title mb-4">PENGATURAN KONTAK</h2>
+                    
+                    <form action="{{ route('contact.settings.update') }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label>Address</label>
+                                    <textarea class="form-control contact-form-textarea" name="address" required>{{ $contactInfo['address'] ?? 'Jl. Babakan Jeruk II No.9, Pasteur\nKec. Sukajadi, Kota Bandung\nJawa Barat 40161' }}</textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Phone</label>
+                                    <input type="text" class="form-control contact-form-input" name="phone" value="{{ $contactInfo['phone'] ?? '+62 822-1234-5678' }}" required>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label>Email</label>
+                                    <input type="email" class="form-control contact-form-input" name="email" value="{{ $contactInfo['email'] ?? 'info@foody.com' }}" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Map URL</label>
+                                    <textarea class="form-control contact-form-textarea" name="map_url" required>{{ $mapUrl->content_value ?? 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d300.72595531967187!2d107.66393355737362!3d-6.943197775870065!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e7c381e3c323%3A0x5f5160f6c9796e4b!2sCYBERLABS%20-%20Jasa%20Digital%20Marketing%20%7C%20Jasa%20Pembuatan%20Website%20%7C%20Jasa%20Pembuatan%20Aplikasi!5e0!3m2!1sid!2sid!4v1768879182825!5m2!1sid!2sid' }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <button type="submit" class="btn contact-form-submit">UPDATE SETTINGS</button>
+                                <a href="{{ route('contact.index') }}" class="btn btn-secondary ms-2">BACK TO CONTACT</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@else
 <!-- Contact Form Section -->
 <section class="contact-form-section">
     <div class="container-fluid">
@@ -29,7 +85,12 @@
                     </div>
                     @endif
                     
-                    <h2 class="contact-form-title mb-4">KONTAK KAMI</h2>
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2 class="contact-form-title mb-0">KONTAK KAMI</h2>
+                        <a href="{{ route('contact.index', ['settings' => 1]) }}" class="btn btn-info">
+                            <i class="fas fa-cog me-2"></i>Settings
+                        </a>
+                    </div>
                     
                     <form action="{{ route('contact.store') }}" method="POST">
                         @csrf
@@ -76,6 +137,7 @@
         </div>
     </div>
 </section>
+@endif
 
 <!-- Contact Info Section -->
 <section class="contact-info-section">

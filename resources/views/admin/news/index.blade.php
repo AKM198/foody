@@ -26,9 +26,6 @@
         <a href="{{ route('admin.news.create') }}" class="btn btn-primary me-2">
             <i class="fas fa-plus me-2"></i>Tambah Berita
         </a>
-        <a href="{{ route('admin.contacts.settings') }}" class="btn btn-info">
-            <i class="fas fa-cog me-2"></i>Pengaturan Kontak
-        </a>
     </div>
 </div>
 

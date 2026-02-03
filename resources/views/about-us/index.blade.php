@@ -3,13 +3,13 @@
 @section('title', 'FOODY - Tentang Kami')
 
 @section('content')
-<!-- Header Section with Banner2 Background -->
-<section class="about-header">
+<!-- Header Section with Dynamic Background -->
+<section class="about-header" style="background-image: url('{{ asset($sections['header']->current_img ?? 'assets/images/banner2.png') }}')">
     <div class="container-fluid">
         <div class="row align-items-center h-100">
             <div class="col-lg-12">
                 <div class="about-header-content">
-                    <h1 class="about-header-title">{{ $pageContents['header_title']->content_value ?? 'TENTANG KAMI' }}</h1>
+                    <h1 class="about-header-title">{{ $sections['header']->title ?? 'TENTANG KAMI' }}</h1>
                 </div>
             </div>
         </div>
@@ -22,19 +22,16 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="about-text-content">
-                    <h2 class="about-section-title">FOODY</h2>
+                    <h2 class="about-section-title">{{ $sections['tasty_food']->title ?? 'FOODY' }}</h2>
                     <p class="about-paragraph">
-                        {{ $pageContents['tasty_food_content']->content_value ?? 'Tasty Food adalah perusahaan kuliner terdepan yang berkomitmen menghadirkan makanan sehat dan bergizi untuk keluarga Indonesia. Sejak didirikan, kami telah melayani ribuan pelanggan dengan standar kualitas tertinggi dalam setiap hidangan yang kami sajikan.' }}
+                        {{ $sections['tasty_food']->content ?? 'Tasty Food adalah perusahaan kuliner terdepan yang berkomitmen menghadirkan makanan sehat dan bergizi untuk keluarga Indonesia.' }}
                     </p>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="about-images-grid">
                     <div class="about-image-item">
-                        <img src="{{ asset('assets/images/homemade3.jpg') }}" alt="Foody" class="about-img">
-                    </div>
-                    <div class="about-image-item">
-                        <img src="{{ asset('assets/images/cooking3.jpg') }}" alt="Foody" class="about-img">
+                        <img src="{{ asset($sections['tasty_food']->current_img ?? 'assets/images/homemade3.jpg') }}" alt="Foody" class="about-img">
                     </div>
                 </div>
             </div>
@@ -49,18 +46,15 @@
             <div class="col-lg-6">
                 <div class="about-images-grid">
                     <div class="about-image-item">
-                        <img src="{{ asset('assets/images/homemade6.jpg') }}" alt="Visi" class="about-img">
-                    </div>
-                    <div class="about-image-item">
-                        <img src="{{ asset('assets/images/street2.jpg') }}" alt="Visi" class="about-img">
+                        <img src="{{ asset($sections['visi']->current_img ?? 'assets/images/homemade6.jpg') }}" alt="Visi" class="about-img">
                     </div>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="about-text-content">
-                    <h2 class="about-section-title">VISI</h2>
+                    <h2 class="about-section-title">{{ $sections['visi']->title ?? 'VISI' }}</h2>
                     <p class="about-paragraph">
-                        {{ $pageContents['visi_content']->content_value ?? 'Menjadi pelopor revolusi makanan sehat di Indonesia dengan menciptakan generasi yang lebih sadar akan pentingnya nutrisi berkualitas.' }}
+                        {{ $sections['visi']->content ?? 'Menjadi pelopor revolusi makanan sehat di Indonesia dengan menciptakan generasi yang lebih sadar akan pentingnya nutrisi berkualitas.' }}
                     </p>
                 </div>
             </div>
@@ -74,16 +68,16 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="about-text-content">
-                    <h2 class="about-section-title">MISI</h2>
+                    <h2 class="about-section-title">{{ $sections['misi']->title ?? 'MISI' }}</h2>
                     <p class="about-paragraph">
-                        {{ $pageContents['misi_content']->content_value ?? 'Menyediakan solusi makanan sehat yang terjangkau dan mudah diakses untuk seluruh masyarakat Indonesia.' }}
+                        {{ $sections['misi']->content ?? 'Menyediakan solusi makanan sehat yang terjangkau dan mudah diakses untuk seluruh masyarakat Indonesia.' }}
                     </p>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="about-images-grid single">
                     <div class="about-image-item large">
-                        <img src="{{ asset('assets/images/cooking2.jpg') }}" alt="Misi" class="about-img">
+                        <img src="{{ asset($sections['misi']->current_img ?? 'assets/images/cooking2.jpg') }}" alt="Misi" class="about-img">
                     </div>
                 </div>
             </div>

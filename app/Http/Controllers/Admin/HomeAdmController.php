@@ -4,86 +4,111 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\PageContent;
-use App\Models\PageImage;
-use Illuminate\Support\Facades\Storage;
+use App\Models\HomeSection;
 
 class HomeAdmController extends Controller
 {
     public function edit()
     {
-        $contents = PageContent::where('page_name', 'home')->get()->keyBy('section_name');
-        $images = PageImage::where('page_name', 'home')->get()->keyBy('section_name');
+        $sections = [
+            'header' => 'Header',
+            'tentang' => 'Tentang Kami', 
+            'menu_card_1' => 'Menu Card 1',
+            'menu_card_2' => 'Menu Card 2',
+            'menu_card_3' => 'Menu Card 3',
+            'menu_card_4' => 'Menu Card 4'
+        ];
         
-        // Initialize default images if not exist
-        $this->initializeDefaultImages();
+        $homeSections = [];
+        foreach ($sections as $key => $name) {
+            $homeSections[$key] = HomeSection::firstOrCreate(
+                ['section_name' => $key],
+                [
+                    'title' => $this->getDefaultTitle($key),
+                    'content' => $this->getDefaultContent($key),
+                    'current_img' => $this->getDefaultImage($key)
+                ]
+            );
+        }
         
-        return view('admin.pages.home', compact('contents', 'images'));
+        return view('admin.pages.home', compact('homeSections'));
     }
     
     public function update(Request $request)
     {
         $request->validate([
-            'hero_title' => 'nullable|string',
-            'hero_description' => 'nullable|string',
-            'tentang_description' => 'nullable|string',
-            'menu_card_1' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'menu_card_2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'menu_card_3' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'menu_card_4' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'section' => 'required|string',
+            'title' => 'nullable|string',
+            'content' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
         
-        $sections = ['hero_title', 'hero_description', 'tentang_description'];
+        $section = HomeSection::where('section_name', $request->section)->first();
         
-        foreach ($sections as $section) {
-            if ($request->has($section)) {
-                PageContent::updateOrCreate(
-                    ['page_name' => 'home', 'section_name' => $section, 'content_type' => 'text'],
-                    ['content_value' => $request->input($section)]
-                );
-            }
+        if ($request->title) $section->title = $request->title;
+        if ($request->content) $section->content = $request->content;
+        
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $fileName = time() . '_' . $request->section . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('storage/pages'), $fileName);
+            $section->addNewImage('storage/pages/' . $fileName);
+        } else {
+            $section->save();
         }
         
-        // Handle image uploads
-        $imageFields = ['menu_card_1', 'menu_card_2', 'menu_card_3', 'menu_card_4'];
-        foreach ($imageFields as $field) {
-            if ($request->hasFile($field)) {
-                $file = $request->file($field);
-                $fileName = time() . '_' . $field . '.' . $file->getClientOriginalExtension();
-                
-                // Store in public/storage/pages directory
-                $file->move(public_path('storage/pages'), $fileName);
-                
-                PageImage::updateOrCreate(
-                    ['page_name' => 'home', 'section_name' => $field],
-                    [
-                        'image_path' => 'storage/pages/' . $fileName,
-                        'alt_text' => $request->input($field . '_alt', $field)
-                    ]
-                );
-            }
-        }
-        
-        return redirect()->route('admin.home.edit')->with('success', 'Home page updated successfully!');
+        return redirect()->route('admin.home.edit')->with('success', 'Home section updated successfully!');
     }
     
-    private function initializeDefaultImages()
+    public function switchImage(Request $request)
     {
-        $defaultImages = [
-            'menu_card_1' => 'assets/images/healthy1.png',
-            'menu_card_2' => 'assets/images/healthy2.png', 
-            'menu_card_3' => 'assets/images/healthy3.png',
+        $request->validate([
+            'section' => 'required|string',
+            'prev_index' => 'required|integer|min:1|max:4'
+        ]);
+        
+        $section = HomeSection::where('section_name', $request->section)->first();
+        $section->switchToPrevious($request->prev_index);
+        
+        return response()->json(['success' => true]);
+    }
+    
+    private function getDefaultImage($section)
+    {
+        $defaults = [
+            'header' => 'assets/images/healty3.png',
+            'tentang' => null,
+            'menu_card_1' => 'assets/images/healty1.png',
+            'menu_card_2' => 'assets/images/healty2.png',
+            'menu_card_3' => 'assets/images/healty3.png',
             'menu_card_4' => 'assets/images/street3.png'
         ];
-        
-        foreach ($defaultImages as $section => $imagePath) {
-            PageImage::firstOrCreate(
-                ['page_name' => 'home', 'section_name' => $section],
-                [
-                    'image_path' => $imagePath,
-                    'alt_text' => ucfirst(str_replace('_', ' ', $section))
-                ]
-            );
-        }
+        return $defaults[$section] ?? null;
+    }
+    
+    private function getDefaultTitle($section)
+    {
+        $defaults = [
+            'header' => 'HEALTHY',
+            'tentang' => 'TENTANG KAMI',
+            'menu_card_1' => 'MAKANAN SEHAT',
+            'menu_card_2' => 'MAKANAN SEGAR',
+            'menu_card_3' => 'MAKANAN BERGIZI',
+            'menu_card_4' => 'MAKANAN LEZAT'
+        ];
+        return $defaults[$section] ?? ucfirst(str_replace('_', ' ', $section));
+    }
+    
+    private function getDefaultContent($section)
+    {
+        $defaults = [
+            'header' => 'Nikmati kelezatan makanan sehat yang disiapkan dengan bahan-bahan segar pilihan terbaik. Kami menghadirkan cita rasa autentik yang memanjakan lidah sambil menjaga kesehatan tubuh Anda.',
+            'tentang' => 'Foody hadir sebagai solusi terpercaya untuk kebutuhan makanan sehat dan bergizi keluarga Indonesia. Dengan komitmen menggunakan bahan-bahan segar berkualitas tinggi, kami menghadirkan berbagai pilihan hidangan lezat yang tidak hanya memanjakan lidah tetapi juga memberikan nutrisi terbaik untuk kesehatan optimal.',
+            'menu_card_1' => 'Hidangan bergizi tinggi yang diolah dengan teknik memasak modern untuk mempertahankan kandungan vitamin dan mineral alami.',
+            'menu_card_2' => 'Bahan-bahan segar pilihan yang dipetik langsung dari kebun organik untuk menjamin kualitas dan kesegaran setiap hidangan.',
+            'menu_card_3' => 'Menu seimbang dengan kandungan protein, karbohidrat, dan vitamin yang tepat untuk mendukung gaya hidup sehat keluarga.',
+            'menu_card_4' => 'Cita rasa autentik yang memadukan resep tradisional dengan sentuhan modern untuk pengalaman kuliner yang tak terlupakan.'
+        ];
+        return $defaults[$section] ?? 'Content for ' . ucfirst(str_replace('_', ' ', $section));
     }
 }

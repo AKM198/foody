@@ -13,19 +13,19 @@ class DefaultMenuImagesSeeder extends Seeder
             [
                 'page_name' => 'home',
                 'section_name' => 'menu_card_1',
-                'image_path' => 'assets/images/healthy1.png',
+                'image_path' => 'assets/images/healty1.png',
                 'alt_text' => 'Makanan Sehat'
             ],
             [
                 'page_name' => 'home', 
                 'section_name' => 'menu_card_2',
-                'image_path' => 'assets/images/healthy2.png',
+                'image_path' => 'assets/images/healty2.png',
                 'alt_text' => 'Makanan Segar'
             ],
             [
                 'page_name' => 'home',
                 'section_name' => 'menu_card_3', 
-                'image_path' => 'assets/images/healthy3.png',
+                'image_path' => 'assets/images/healty3.png',
                 'alt_text' => 'Makanan Bergizi'
             ],
             [

@@ -10,6 +10,8 @@ class About extends Model
         'section',
         'title',
         'content',
-        'image'
+        'image',
+        'current_img',
+        'prev_img'
     ];
 }

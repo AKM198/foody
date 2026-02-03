@@ -16,8 +16,9 @@
 }
 
 .admin-brand {
-    text-center: true;
+    text-align: center;
     margin-bottom: 2rem;
+    padding: 0 1rem;
 }
 
 .admin-brand h4 {
@@ -25,6 +26,7 @@
     font-family: Arial, sans-serif;
     font-weight: 700;
     margin-bottom: 0.5rem;
+    font-size: 1.2rem;
 }
 
 .admin-brand p {
@@ -85,6 +87,18 @@
 .admin-content {
     padding: 30px;
     background: #fff;
+    min-height: calc(100vh - 80px);
+}
+
+/* Gallery Admin Section */
+.admin-content.gallery-section {
+    background: #f5f5f5 !important;
+}
+
+/* Gallery specific styling */
+.gallery-admin-section {
+    background-color: #f5f5f5;
+    padding: 30px;
     min-height: calc(100vh - 80px);
 }
 

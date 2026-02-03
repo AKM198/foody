@@ -8,7 +8,7 @@
     <div class="container-fluid">
         <div class="hero-image-top-right">
             <div class="hero-image-circle">
-                <img src="{{ asset('assets/images/healty3.png') }}" alt="Healthy Food">
+                <img src="{{ asset($sections['header']->current_img ?? 'assets/images/healty3.png') }}" alt="Healthy Food">
             </div>
         </div>
         <div class="row align-items-center h-100">
@@ -16,13 +16,13 @@
                 <div class="hero-content">
                     <div class="hero-brand-title">
                         <div class="hero-line"></div>
-                        <h1 class="hero-title">
-                            {{ $pageContents['hero_title']->content_value ?? 'HEALTHY' }}<br>
-                            <span class="hero-bold">FOODY</span>
-                        </h1>
+                    <h1 class="hero-title">
+                        {{ $sections['header']->title ?? 'HEALTHY' }}<br>
+                        <span class="hero-bold">FOODY</span>
+                    </h1>
                     </div>
                     <p class="hero-description">
-                        {{ $pageContents['hero_description']->content_value ?? 'Nikmati kelezatan makanan sehat yang disiapkan dengan bahan-bahan segar pilihan terbaik. Kami menghadirkan cita rasa autentik yang memanjakan lidah sambil menjaga kesehatan tubuh Anda. Setiap hidangan dibuat dengan penuh perhatian untuk memberikan nutrisi optimal bagi keluarga.' }}
+                        {{ $sections['header']->content ?? 'Nikmati kelezatan makanan sehat yang disiapkan dengan bahan-bahan segar pilihan terbaik. Kami menghadirkan cita rasa autentik yang memanjakan lidah sambil menjaga kesehatan tubuh Anda. Setiap hidangan dibuat dengan penuh perhatian untuk memberikan nutrisi optimal bagi keluarga.' }}
                     </p> 
                     <a href="{{ route('about.index') }}" class="btn-tentang">TENTANG KAMI</a>
                 </div>
@@ -39,7 +39,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <p class="tentang-description">
-                        {{ $pageContents['tentang_description']->content_value ?? 'Foody hadir sebagai solusi terpercaya untuk kebutuhan makanan sehat dan bergizi keluarga Indonesia. Dengan komitmen menggunakan bahan-bahan segar berkualitas tinggi, kami menghadirkan berbagai pilihan hidangan lezat yang tidak hanya memanjakan lidah tetapi juga memberikan nutrisi terbaik untuk kesehatan optimal.' }}
+                        {{ $sections['tentang']->content ?? 'Foody hadir sebagai solusi terpercaya untuk kebutuhan makanan sehat dan bergizi keluarga Indonesia. Dengan komitmen menggunakan bahan-bahan segar berkualitas tinggi, kami menghadirkan berbagai pilihan hidangan lezat yang tidak hanya memanjakan lidah tetapi juga memberikan nutrisi terbaik untuk kesehatan optimal.' }}
                     </p>
                     <div class="tentang-line"></div>
                 </div>
@@ -55,7 +55,7 @@
             <div class="col-lg-3 col-md-6 menu-col">
                 <div class="menu-card">
                     <div class="menu-image-container">
-                        <img src="{{ isset($pageImages['menu_card_1']) && $pageImages['menu_card_1']->image_path ? asset($pageImages['menu_card_1']->image_path) : asset('assets/images/healty1.png') }}" alt="Menu" class="menu-image">
+                        <img src="{{ asset($sections['menu_card_1']->current_img ?? 'assets/images/healty1.png') }}" alt="Menu" class="menu-image">
                     </div>
                     <div class="menu-content">
                         <h4 class="menu-title">MAKANAN SEHAT</h4>
@@ -69,7 +69,7 @@
             <div class="col-lg-3 col-md-6 menu-col">
                 <div class="menu-card">
                     <div class="menu-image-container">
-                        <img src="{{ isset($pageImages['menu_card_2']) && $pageImages['menu_card_2']->image_path ? asset($pageImages['menu_card_2']->image_path) : asset('assets/images/healty2.png') }}" alt="Menu" class="menu-image">
+                        <img src="{{ asset($sections['menu_card_2']->current_img ?? 'assets/images/healty2.png') }}" alt="Menu" class="menu-image">
                     </div>
                     <div class="menu-content">
                         <h4 class="menu-title">MAKANAN SEGAR</h4>
@@ -83,7 +83,7 @@
             <div class="col-lg-3 col-md-6 menu-col">
                 <div class="menu-card">
                     <div class="menu-image-container">
-                        <img src="{{ isset($pageImages['menu_card_3']) && $pageImages['menu_card_3']->image_path ? asset($pageImages['menu_card_3']->image_path) : asset('assets/images/healty3.png') }}" alt="Menu" class="menu-image">
+                        <img src="{{ asset($sections['menu_card_3']->current_img ?? 'assets/images/healty3.png') }}" alt="Menu" class="menu-image">
                     </div>
                     <div class="menu-content">
                         <h4 class="menu-title">MAKANAN BERGIZI</h4>
@@ -97,7 +97,7 @@
             <div class="col-lg-3 col-md-6 menu-col">
                 <div class="menu-card">
                     <div class="menu-image-container">
-                        <img src="{{ isset($pageImages['menu_card_4']) && $pageImages['menu_card_4']->image_path ? asset($pageImages['menu_card_4']->image_path) : asset('assets/images/street3.png') }}" alt="Menu" class="menu-image">
+                        <img src="{{ asset($sections['menu_card_4']->current_img ?? 'assets/images/street3.png') }}" alt="Menu" class="menu-image">
                     </div>
                     <div class="menu-content">
                         <h4 class="menu-title">MAKANAN LEZAT</h4>

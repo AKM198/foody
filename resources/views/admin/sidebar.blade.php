@@ -1,6 +1,9 @@
 <div class="admin-sidebar">
     <div class="admin-brand">
-        <h4>TASTY FOOD</h4>
+        <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+            <img src="{{ asset('assets/images/foodylogodrk.png') }}" alt="FOODY" style="height: 35px; margin-right: 10px;">
+            <h4 style="margin: 0;">FOODY</h4>
+        </div>
         <p>Admin Panel</p>
     </div>
     <nav class="nav flex-column">

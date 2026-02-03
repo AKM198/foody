@@ -4,7 +4,7 @@
             <!-- Left Column - Brand Info -->
             <div class="col-md-4">
                 <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                    <img src="{{ asset('assets/images/foodylogo.png') }}" alt="FOODY" style="height: 40px; margin-right: 15px;">
+                    <img src="{{ asset('assets/images/foodylogodrk.png') }}" alt="FOODY" style="height: 40px; margin-right: 15px;">
                     <h2 class="footer-brand-title" style="margin: 0;">FOODY</h2>
                 </div>
                 <p class="footer-description">

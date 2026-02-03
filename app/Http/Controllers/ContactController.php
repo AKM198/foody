@@ -19,7 +19,9 @@ class ContactController extends Controller
             ->where('content_type', 'url')
             ->first();
             
-        return view('contact.contact', compact('contactInfo', 'mapUrl'));
+        $showSettings = request()->has('settings');
+            
+        return view('contact.contact', compact('contactInfo', 'mapUrl', 'showSettings'));
     }
     
     public function store(Request $request)
@@ -39,5 +41,37 @@ class ContactController extends Controller
         ]);
         
         return redirect()->back()->with('success', 'Terima kasih atas pesan Anda! Kami akan segera menghubungi Anda.');
+    }
+    
+    public function updateSettings(Request $request)
+    {
+        $request->validate([
+            'address' => 'required|string',
+            'phone' => 'required|string',
+            'email' => 'required|email',
+            'map_url' => 'required|url'
+        ]);
+        
+        PageContent::updateOrCreate(
+            ['page_name' => 'contact', 'section_name' => 'contact_info', 'content_type' => 'address'],
+            ['content_value' => $request->address]
+        );
+        
+        PageContent::updateOrCreate(
+            ['page_name' => 'contact', 'section_name' => 'contact_info', 'content_type' => 'phone'],
+            ['content_value' => $request->phone]
+        );
+        
+        PageContent::updateOrCreate(
+            ['page_name' => 'contact', 'section_name' => 'contact_info', 'content_type' => 'email'],
+            ['content_value' => $request->email]
+        );
+        
+        PageContent::updateOrCreate(
+            ['page_name' => 'contact', 'section_name' => 'map', 'content_type' => 'url'],
+            ['content_value' => $request->map_url]
+        );
+        
+        return redirect()->route('contact.index')->with('success', 'Contact settings updated successfully!');
     }
 }

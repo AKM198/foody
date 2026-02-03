@@ -272,8 +272,8 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
 /* Hero Section */
 .hero-section {
     background-color: #f5f5f5;
-    padding: 120px 0 60px 0;
-    min-height: 100vh;
+    padding: 0 0 60px 0;
+    min-height: 120vh;
     display: flex;
     align-items: center;
     position: relative;
@@ -282,18 +282,17 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
 
 .hero-image-top-right {
     position: absolute;
-    top: -80px;
-    right: -80px;
+    top: -170px;
+    right: -210px;
     z-index: 1;
 }
 
 .hero-image-circle {
-    width: 720px;
-    height: 720px;
+    width: 860px;
+    height: 920px;
     border-radius: 50%;
     overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-    background: rgba(245, 245, 245, 0.8);
+    background: f5f5f5;
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     border: 3px solid rgba(255, 255, 255, 0.3);
@@ -339,13 +338,13 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
     font-size: 1rem;
     line-height: 1.8;
     margin-bottom: 40px;
-    max-width: 980px;
+    max-width: 1000px;
 }
 
 .btn-tentang {
     background-color: #000;
     color: #fff;
-    padding: 20px 80px;
+    padding: 20px 120px;
     text-decoration: none;
     font-weight: 400;
     letter-spacing: 1px;
@@ -421,11 +420,11 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
     border-radius: 15px;
     overflow: visible;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    padding: 140px 25px 45px 25px;
+    padding: 130px 25px 45px 25px;
     text-align: center;
     position: relative;
     margin-top: 120px;
-    height: 340px;
+    height: 360px;
 }
 
 .menu-image-container {
@@ -447,13 +446,13 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
 }
 
 .menu-content {
-    padding-top: 15px;
+    padding-top:-5px;
 }
 
 .menu-title {
     font-family: Arial, sans-serif;
-    font-size: 1.4rem;
-    font-weight: 600;
+    font-size: 2rem;
+    font-weight: 780;
     color: #000;
     margin-bottom: 15px;
 }
@@ -472,12 +471,12 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
 }
 
 .news-row {
-    margin: 0 -10px;
+    margin: 0 -5px;
 }
 
 .news-col {
-    padding: 0 10px;
-    margin-bottom: 20px;
+    padding: 0 5px;
+    margin-bottom: 10px;
 }
 
 .news-card {
@@ -496,11 +495,11 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
 }
 
 .news-card.large-card {
-    height: 820px;
+    height: 910px;
 }
 
 .news-card.large-card .news-image {
-    height: 300px;
+    height: 450px;
 }
 
 .news-card.small-card {
@@ -528,12 +527,12 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
 
 .news-card.large-card .news-title {
     font-size: 1.4rem;
-    margin-bottom: 20px;
+    margin-bottom: -10px;
 }
 
 .news-card.small-card .news-title {
-    font-size: 1.1rem;
-    margin-bottom: 15px;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
 }
 
 .news-excerpt {
@@ -572,6 +571,21 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
     padding: 100px 0;
 }
 
+/* Navbar logo handling */
+.navbar-logo {
+    transition: all 0.3s ease;
+}
+
+/* When navbar is scrolled/solid, use regular logo */
+.navbar.scrolled .navbar-logo {
+    content: url('../images/foodylogodrk.png');
+}
+
+/* When navbar is transparent, use dark logo */
+.navbar:not(.scrolled) .navbar-logo {
+    content: url('../images/foodylogo.png');
+}
+
 .gallery-row {
     margin: 0 -10px;
 }
@@ -606,7 +620,6 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
 
 /* About Us Page */
 .about-header {
-    background-image: url('../images/banner2.png');
     background-size: cover;
     background-position: center;
     padding: 250px 0 250px 0;
@@ -1178,7 +1191,6 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
 
 .carousel-nav.next {
     right: -25px;
-    opacity: ;
 }
 
 .carousel-nav:hover {
@@ -1298,10 +1310,10 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(128, 128, 128, 0.7);
+    background: rgba(166, 166, 166, 0.7);
     border: none;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     font-size: 28px;
     color: white;
@@ -1314,11 +1326,11 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
 }
 
 .carousel-nav.prev {
-    left: 20px;
+    left: -30px;
 }
 
 .carousel-nav.next {
-    right: 20px;
+    right: -30px;
 }
 
 .carousel-nav:hover {

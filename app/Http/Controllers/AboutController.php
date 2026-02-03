@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\About;
-use App\Models\PageContent;
+use App\Models\AboutSection;
 use Illuminate\Http\Request;
 
 class AboutController extends Controller
 {
     public function index()
     {
-        $pageContents = PageContent::where('page_name', 'about')->get()->keyBy('section_name');
-        return view('about-us.index', compact('pageContents'));
+        $sections = AboutSection::whereIn('section_name', ['header', 'tasty_food', 'visi', 'misi'])->get()->keyBy('section_name');
+        return view('about-us.index', compact('sections'));
     }
 }
