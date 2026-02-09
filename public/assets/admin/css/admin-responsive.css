@@ -1,0 +1,85 @@
+/* ==========================================================================
+   ADMIN RESPONSIVE CSS - FOODY
+   ========================================================================== */
+
+/* Mobile Admin Styles */
+@media (max-width: 767px) {
+    .admin-sidebar {
+        position: fixed;
+        left: -100%;
+        top: 0;
+        width: 250px;
+        z-index: 1000;
+        transition: left 0.3s;
+    }
+    
+    .admin-sidebar.show {
+        left: 0;
+    }
+    
+    .admin-main-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+    
+    .admin-header {
+        width: 100%;
+        margin-left: 0;
+    }
+    
+    .admin-header .container-fluid {
+        padding: 0 15px;
+    }
+    
+    .admin-content {
+        padding: 15px;
+    }
+    
+    .admin-page-title {
+        font-size: 20px;
+    }
+    
+    .admin-table {
+        overflow-x: auto;
+    }
+    
+    .table-img {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .btn-action {
+        padding: 5px 10px;
+        font-size: 12px;
+        margin-bottom: 5px;
+        display: block;
+        width: 100%;
+    }
+    
+    .dashboard-card {
+        margin-bottom: 15px;
+    }
+}
+
+/* Desktop Admin Styles */
+@media (min-width: 768px) {
+    .col-md-2 {
+        flex: 0 0 16.666667%;
+        max-width: 16.666667%;
+    }
+    
+    .col-md-10 {
+        flex: 0 0 83.333333%;
+        max-width: 83.333333%;
+        margin-left: 0;
+    }
+    
+    .admin-header {
+        width: 100%;
+        margin-left: 0;
+    }
+    
+    .admin-main-content {
+        width: 100%;
+    }
+}

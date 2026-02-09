@@ -1,0 +1,163 @@
+/* ==========================================================================
+   MOBILE RESPONSIVE CSS - FOODY
+   ========================================================================== */
+
+/* Base Mobile Styles (max-width: 767px) */
+@media (max-width: 767px) {
+    /* Typography */
+    html { font-size: 14px; }
+    
+    /* Navigation */
+    .navbar-collapse {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 8px;
+        margin-top: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .navbar-nav .nav-link {
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        font-size: 1.1rem;
+        text-align: center;
+    }
+    
+    .navbar-nav .nav-link:last-child {
+        border-bottom: none;
+    }
+    
+    /* Hero Section */
+    .hero-section {
+        padding: 100px 0 60px 0;
+        text-align: center;
+    }
+    
+    .hero-content {
+        padding: 0 20px;
+        order: 2;
+    }
+    
+    .hero-image-container {
+        order: 1;
+        margin-bottom: 30px;
+    }
+    
+    .hero-image-top-right {
+        position: relative;
+        top: 0;
+        right: 0;
+        margin: 0 auto;
+    }
+    
+    .hero-image-circle {
+        width: 280px;
+        height: 280px;
+        margin: 0 auto;
+    }
+    
+    .hero-line {
+        width: 60px;
+        height: 3px;
+        margin: 0 auto 20px auto;
+    }
+    
+    /* Menu Cards */
+    .menu-card-col {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    
+    /* News Cards */
+    .news-col {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+    
+    .news-card.large-card,
+    .news-card.small-card {
+        height: auto;
+        min-height: 400px;
+    }
+    
+    .news-card.large-card .news-image,
+    .news-card.small-card .news-image {
+        height: 200px;
+    }
+    
+    .news-content {
+        padding: 20px;
+    }
+    
+    /* Gallery Grid - 3 columns */
+    .gallery-col {
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+        padding: 0 2.5px;
+        margin-bottom: 5px;
+    }
+    
+    .gallery-image {
+        height: 150px;
+    }
+    
+    /* About Images */
+    .about-images-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .about-images-grid .about-img {
+        height: 250px;
+    }
+    
+    /* Footer */
+    .footer-section .row {
+        flex-direction: column;
+    }
+    
+    .footer-section .col-md-4,
+    .footer-section .col-md-2 {
+        margin-bottom: 30px;
+    }
+    
+    .footer-social {
+        justify-content: center;
+    }
+    
+    /* Contact Form */
+    .contact-form-map-container {
+        flex-direction: column;
+    }
+    
+    .contact-info-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Buttons */
+    .btn-tentang,
+    .btn-lihat-lebih {
+        width: 100%;
+        max-width: 280px;
+    }
+    
+    /* Product Grid - 3 columns */
+    .product-grid-section .col-md-3 {
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+    }
+}
+
+/* Small Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+    html { font-size: 13px; }
+    
+    .gallery-col {
+        padding: 0 2.5px;
+    }
+    
+    .gallery-image {
+        height: 120px;
+    }
+}
