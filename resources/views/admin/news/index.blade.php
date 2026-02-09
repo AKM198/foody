@@ -2,6 +2,10 @@
 
 @section('title', 'Kelola Berita - Admin TASTY FOOD')
 
+@push('styles')
+<link href="{{ asset('assets/admin/css/crud-modal.css') }}" rel="stylesheet">
+@endpush
+
 @section('content')
 @if(session('success'))
     <div class="alert alert-success alert-dismissible fade show" id="successAlert">
@@ -21,29 +25,30 @@
     </div>
 @endif
 
-<div class="mb-3 d-flex justify-content-between align-items-center">
-    <div>
-        <a href="{{ route('admin.news.create') }}" class="btn btn-primary me-2">
-            <i class="fas fa-plus me-2"></i>Tambah Berita
-        </a>
-    </div>
+<div class="mb-3">
+    <button id="crudTambahBtn" class="crud-btn-tambah">
+        <i class="fas fa-plus"></i> Tambah Data
+    </button>
 </div>
 
 <div class="table-responsive">
     <table class="table admin-table">
         <thead>
             <tr>
-                <th>No</th>
-                <th>Gambar</th>
-                <th>Judul</th>
-                <th>Konten</th>
-                <th>Tanggal</th>
-                <th>Aksi</th>
+                <th style="width: 5%;">No</th>
+                <th style="width: 10%;">Gambar</th>
+                <th style="width: 20%;">Judul</th>
+                <th style="width: 35%;">Konten</th>
+                <th style="width: 12%;">Tanggal</th>
+                <th style="width: 18%; text-align: center;">
+                    Aksi
+            
+                </th>
             </tr>
         </thead>
         <tbody>
             @forelse($news as $index => $item)
-            <tr>
+            <tr data-gallery-id="{{ $item->id }}">
                 <td>{{ $news->firstItem() + $index }}</td>
                 <td>
                     @if($item->image_path)
@@ -52,25 +57,27 @@
                         <span class="text-muted">No Image</span>
                     @endif
                 </td>
-                <td>{{ Str::limit($item->title, 30) }}</td>
+                <td class="gallery-title">{{ Str::limit($item->title, 30) }}</td>
+                <td class="gallery-desc" style="display:none;">{{ strip_tags($item->content) }}</td>
                 <td>{{ Str::limit(strip_tags($item->content), 50) }}</td>
-                <td>{{ $item->created_at->format('d/m/Y') }}</td>
+                <td class="gallery-date">{{ $item->created_at->format('d/m/Y') }}</td>
                 <td>
-                    <a href="{{ route('admin.news.edit', $item) }}" class="btn btn-sm btn-admin me-1">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    <form action="{{ route('admin.news.destroy', $item) }}" method="POST" style="display: inline;" onsubmit="return confirm('Yakin ingin menghapus?')">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger">
+                    <div class="crud-action-buttons">
+                        <button class="crud-btn-action crud-btn-view" data-id="{{ $item->id }}" title="Lihat Detail">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="crud-btn-action crud-btn-edit" data-id="{{ $item->id }}" title="Edit">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="crud-btn-action crud-btn-delete" data-id="{{ $item->id }}" title="Hapus">
                             <i class="fas fa-trash"></i>
                         </button>
-                    </form>
+                    </div>
                 </td>
             </tr>
             @empty
             <tr>
-                <td colspan="6" class="text-center">Tidak ada berita</td>
+                <td colspan="6" class="text-center" style="padding: 40px;">Tidak ada berita</td>
             </tr>
             @endforelse
         </tbody>
@@ -78,4 +85,6 @@
 </div>
 
 {{ $news->links('pagination::bootstrap-4') }}
+
+<script src="{{ asset('assets/admin/js/crud-modal.js') }}"></script>
 @endsection

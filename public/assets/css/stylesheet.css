@@ -587,12 +587,12 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
 }
 
 .gallery-row {
-    margin: 0 -10px;
+    margin: 0 -5px;
 }
 
 .gallery-col {
-    padding: 0 10px;
-    margin-bottom: 20px;
+    padding: 0 5px;
+    margin-bottom: 10px;
 }
 
 .gallery-card {
@@ -1420,11 +1420,11 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
 }
 
 .carousel-nav.prev {
-    left: 20px;
+    left: 10px;
 }
 
 .carousel-nav.next {
-    right: 20px;
+    right: 10px;
 }
 
 .carousel-nav:hover {
@@ -1444,7 +1444,7 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
 
 .product-grid-section .col-md-3 {
     padding: 0 5px;
-    margin-bottom: 10px;
+    margin-bottom: 0;
 }
 
 .product-card {

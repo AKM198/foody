@@ -93,7 +93,7 @@
                 <label>Google Maps URL</label>
                 <input type="url" class="form-control" name="map_url" value="{{ $mapUrl->content_value ?? '' }}">
             </div>
-            <button type="submit" class="btn btn-primary">Update Informasi Kontak</button>
+            <button type="submit" class="btn btn-primary">Update</button>
         </form>
     </div>
 </div>

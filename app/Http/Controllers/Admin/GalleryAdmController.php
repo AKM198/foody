@@ -38,6 +38,9 @@ class GalleryAdmController extends Controller
                 
                 // Check if file already exists
                 if (file_exists(public_path('storage/gallery/' . $imageName))) {
+                    if ($request->ajax()) {
+                        return response()->json(['success' => false, 'message' => 'File gambar dengan nama yang sama sudah ada.']);
+                    }
                     return redirect()->back()->withErrors(['image' => 'File gambar dengan nama yang sama sudah ada.'])->withInput();
                 }
                 
@@ -51,12 +54,21 @@ class GalleryAdmController extends Controller
                     'category' => 'gallery'
                 ]);
                 
+                if ($request->ajax()) {
+                    return response()->json(['success' => true, 'message' => 'Galeri berhasil ditambahkan!']);
+                }
                 return redirect()->route('admin.gallery.index')->with('success', 'Galeri berhasil ditambahkan!');
             }
         } catch (\Exception $e) {
+            if ($request->ajax()) {
+                return response()->json(['success' => false, 'message' => 'Terjadi kesalahan: ' . $e->getMessage()]);
+            }
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()])->withInput();
         }
         
+        if ($request->ajax()) {
+            return response()->json(['success' => false, 'message' => 'Gagal mengupload gambar.']);
+        }
         return redirect()->back()->withErrors(['image' => 'Gagal mengupload gambar.'])->withInput();
     }
     
@@ -88,6 +100,9 @@ class GalleryAdmController extends Controller
                 
                 // Check if file already exists
                 if (file_exists(public_path('storage/gallery/' . $imageName))) {
+                    if ($request->ajax()) {
+                        return response()->json(['success' => false, 'message' => 'File gambar dengan nama yang sama sudah ada.']);
+                    }
                     return redirect()->back()->withErrors(['image' => 'File gambar dengan nama yang sama sudah ada.'])->withInput();
                 }
                 
@@ -97,8 +112,14 @@ class GalleryAdmController extends Controller
             
             $gallery->update($data);
             
+            if ($request->ajax()) {
+                return response()->json(['success' => true, 'message' => 'Galeri berhasil diupdate!']);
+            }
             return redirect()->route('admin.gallery.index')->with('success', 'Galeri berhasil diupdate!');
         } catch (\Exception $e) {
+            if ($request->ajax()) {
+                return response()->json(['success' => false, 'message' => 'Terjadi kesalahan: ' . $e->getMessage()]);
+            }
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()])->withInput();
         }
     }
@@ -106,6 +127,10 @@ class GalleryAdmController extends Controller
     public function destroy(Product $gallery)
     {
         $gallery->delete();
+        
+        if (request()->ajax()) {
+            return response()->json(['success' => true, 'message' => 'Galeri berhasil dihapus!']);
+        }
         return redirect()->route('admin.gallery.index')->with('success', 'Gallery deleted successfully!');
     }
 }
