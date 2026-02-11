@@ -10,6 +10,7 @@
     <link href="{{ asset('assets/css/stylesheet.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/admin/css/admin.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/admin-pagination.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/mobile.css') }}" rel="stylesheet" media="(max-width: 768px)">
     @stack('styles')
 </head>
 <body>
