@@ -78,6 +78,10 @@
     opacity: 0.7;
 }
 
+.navbar-nav .nav-link:not(.active)::after {
+    display: none;
+}
+
 /* Home page specific navigation positioning */
 body.home-page .navbar-nav {
     margin-left: 0;
@@ -355,7 +359,24 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
 
 .btn-tentang:hover {
     background-color: #333;
+    color: #fff !important;
+}
+
+.btn-lihat-lebih {
+    background-color: #000;
     color: #fff;
+    padding: 18px 80px;
+    text-decoration: none;
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    font-family: Arial, sans-serif;
+    transition: all 0.3s ease;
+}
+
+.btn-lihat-lebih:hover {
+    background-color: #333;
+    color: #fff !important;
 }
 
 /* Section Titles */
@@ -558,6 +579,12 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
     color: #ff9500;
     font-weight: 400;
     font-size: 0.9rem;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.read-more:hover {
+    color: #ff9500 !important;
 }
 
 .news-dots {
@@ -576,14 +603,14 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
     transition: all 0.3s ease;
 }
 
-/* When navbar is scrolled/solid, use regular logo */
-.navbar.scrolled .navbar-logo {
-    content: url('../images/foodylogodrk.png');
+/* Default logo (dark) */
+#mainNavbar .navbar-logo {
+    content: url('../images/foodylogo.png');
 }
 
-/* When navbar is transparent, use dark logo */
-.navbar:not(.scrolled) .navbar-logo {
-    content: url('../images/foodylogo.png');
+/* When navbar is scrolled, keep dark logo */
+#mainNavbar.scrolled .navbar-logo {
+    content: url('../images/foodylogodrk.png');
 }
 
 .gallery-row {
@@ -1375,7 +1402,7 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
 
 .product-carousel-wrapper {
     position: relative;
-    background: linear-gradient(135deg, #ff6b35, #f7931e);
+    background: transparent;
     border-radius: 25px;
     padding: 0;
     height: 475px;

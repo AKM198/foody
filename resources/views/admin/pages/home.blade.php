@@ -7,6 +7,10 @@
     <div class="alert alert-success">{{ session('success') }}</div>
 @endif
 
+<div class="mb-3">
+    <button type="button" class="btn btn-success" onclick="updateAll()">Update All</button>
+</div>
+
 <div class="table-responsive">
     @foreach($homeSections as $key => $section)
     <div class="card mb-4">
@@ -56,7 +60,7 @@
                     @endif
                 </div>
                 
-                <button type="submit" class="btn btn-primary">Update {{ ucfirst(str_replace('_', ' ', $key)) }}</button>
+                <button type="submit" class="btn btn-primary">Update</button>
             </form>
         </div>
     </div>
@@ -112,6 +116,37 @@
 </style>
 
 <script>
+function updateAll() {
+    if (confirm('Are you sure you want to update all sections?')) {
+        const forms = document.querySelectorAll('form');
+        let completed = 0;
+        
+        forms.forEach((form, index) => {
+            setTimeout(() => {
+                const formData = new FormData(form);
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    completed++;
+                    if (completed === forms.length) {
+                        alert('All sections updated successfully!');
+                        location.reload();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }, index * 500);
+        });
+    }
+}
+
 function previewImage(input, section) {
     if (input.files && input.files[0]) {
         const reader = new FileReader();

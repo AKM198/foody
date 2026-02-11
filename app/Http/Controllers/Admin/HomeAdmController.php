@@ -45,17 +45,17 @@ class HomeAdmController extends Controller
         
         $section = HomeSection::where('section_name', $request->section)->first();
         
-        if ($request->title) $section->title = $request->title;
-        if ($request->content) $section->content = $request->content;
+        if ($request->filled('title')) $section->title = $request->title;
+        if ($request->filled('content')) $section->content = $request->content;
         
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $fileName = time() . '_' . $request->section . '.' . $file->getClientOriginalExtension();
             $file->move(public_path('storage/pages'), $fileName);
             $section->addNewImage('storage/pages/' . $fileName);
-        } else {
-            $section->save();
         }
+        
+        $section->save();
         
         return redirect()->route('admin.home.edit')->with('success', 'Home section updated successfully!');
     }
