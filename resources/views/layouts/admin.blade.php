@@ -10,8 +10,7 @@
     <link href="{{ asset('assets/css/stylesheet.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/admin/css/admin.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/admin-pagination.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/admin-mobile.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/admin-fix.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/admin/css/admin-mobile.css') }}" rel="stylesheet">
     @stack('styles')
 </head>
 <body>
@@ -55,18 +54,29 @@
         // Hamburger menu toggle
         document.addEventListener('DOMContentLoaded', function() {
             const hamburgerToggle = document.getElementById('hamburgerToggle');
-            const sidebar = document.querySelector('.col-md-2');
+            const sidebar = document.querySelector('.col-md-2, .admin-sidebar');
+            const body = document.body;
             
             if (hamburgerToggle && sidebar) {
-                hamburgerToggle.addEventListener('click', function() {
+                hamburgerToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
                     sidebar.classList.toggle('show');
+                    body.classList.toggle('sidebar-open');
                 });
                 
-                // Close sidebar when clicking outside
+                // Close sidebar when clicking outside (on overlay)
                 document.addEventListener('click', function(event) {
-                    if (!sidebar.contains(event.target) && !hamburgerToggle.contains(event.target)) {
+                    if (sidebar.classList.contains('show') && 
+                        !sidebar.contains(event.target) && 
+                        !hamburgerToggle.contains(event.target)) {
                         sidebar.classList.remove('show');
+                        body.classList.remove('sidebar-open');
                     }
+                });
+                
+                // Prevent clicks inside sidebar from closing it
+                sidebar.addEventListener('click', function(e) {
+                    e.stopPropagation();
                 });
             }
             
