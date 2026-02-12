@@ -10,7 +10,7 @@
     <link href="{{ asset('assets/css/stylesheet.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/admin/css/admin.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/admin-pagination.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/mobile.css') }}" rel="stylesheet" media="(max-width: 768px)">
+    <link href="{{ asset('assets/css/admin-mobile.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/admin-fix.css') }}" rel="stylesheet">
     @stack('styles')
 </head>
@@ -29,6 +29,9 @@
                     <div class="container-fluid">
                         <div class="row align-items-center">
                             <div class="col">
+                                <button class="hamburger-menu" id="hamburgerToggle">
+                                    <i class="fas fa-bars"></i>
+                                </button>
                                 <h2 class="admin-page-title">@yield('page-title', 'Dashboard')</h2>
                             </div>
                             <div class="col-auto">
@@ -49,8 +52,25 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('assets/admin/js/admin.js') }}"></script>
     <script>
-        // Auto-hide success alerts after 5 seconds
+        // Hamburger menu toggle
         document.addEventListener('DOMContentLoaded', function() {
+            const hamburgerToggle = document.getElementById('hamburgerToggle');
+            const sidebar = document.querySelector('.col-md-2');
+            
+            if (hamburgerToggle && sidebar) {
+                hamburgerToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('show');
+                });
+                
+                // Close sidebar when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!sidebar.contains(event.target) && !hamburgerToggle.contains(event.target)) {
+                        sidebar.classList.remove('show');
+                    }
+                });
+            }
+            
+            // Auto-hide success alerts after 5 seconds
             const successAlert = document.getElementById('successAlert');
             const errorAlert = document.getElementById('errorAlert');
             
