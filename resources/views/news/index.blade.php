@@ -45,8 +45,8 @@
         
         <div class="row news-row">
             @php $otherNews = $news->skip(1); @endphp
-            @forelse($otherNews as $article)
-            <div class="col-md-3 news-col">
+            @forelse($otherNews as $index => $article)
+            <div class="col-md-3 news-col news-item {{ $index >= 8 ? 'd-none' : '' }}">
                 <div class="news-card small-card">
                     <img src="{{ asset($article->image_path) }}" alt="{{ $article->title }}" class="news-image">
                     <div class="news-content">
@@ -67,6 +67,11 @@
             </div>
             @endforelse
         </div>
+        @if($otherNews->count() > 8)
+        <div class="text-center mt-4">
+            <button id="loadMoreNews" class="btn-load-more" onclick="loadMoreNews()">LIHAT LEBIH BANYAK</button>
+        </div>
+        @endif
     </div>
 </section>
 
@@ -98,5 +103,20 @@
     </div>
 </div>
 @endforeach
+
+<script>
+function loadMoreNews() {
+    const hiddenItems = document.querySelectorAll('.news-item.d-none');
+    let delay = 0;
+    hiddenItems.forEach(item => {
+        setTimeout(() => {
+            item.classList.remove('d-none');
+            item.classList.add('fade-in-down');
+        }, delay);
+        delay += 100;
+    });
+    document.getElementById('loadMoreNews').style.display = 'none';
+}
+</script>
 
 @endsection

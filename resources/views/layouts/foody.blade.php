@@ -30,7 +30,7 @@
     <link href="{{ asset('assets/css/stylesheet.css') }}" rel="stylesheet">
     
     <!-- Mobile Responsive Stylesheet -->
-    <link href="{{ asset('assets/css/mobile.css') }}" rel="stylesheet" media="(max-width: 768px)">
+    <link href="{{ asset('assets/css/mobile.css') }}" rel="stylesheet">
 
     @stack('styles')
 </head>

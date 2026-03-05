@@ -34,9 +34,9 @@
 <!-- Product Grid Section -->
 <section class="product-grid-section">
     <div class="container">
-        <div class="row">
-            @foreach($galleries as $gallery)
-            <div class="col-md-3 col-sm-6 mb-4">
+        <div class="row" id="galleryGrid">
+            @foreach($galleries as $index => $gallery)
+            <div class="col-md-3 col-sm-6 mb-4 gallery-item {{ $index >= 8 ? 'd-none' : '' }}">
                 <div class="product-card">
                     @if(Str::startsWith($gallery->image_path, 'http'))
                         <img src="{{ $gallery->image_path }}" alt="{{ $gallery->name }}" class="product-image">
@@ -47,8 +47,11 @@
             </div>
             @endforeach
         </div>
-        <!-- No pagination needed since we show all items -->
+        @if($galleries->count() > 8)
+        <div class="text-center mt-4">
+            <button id="loadMoreGallery" class="btn-load-more" onclick="loadMoreGallery()">LIHAT LEBIH BANYAK</button>
         </div>
+        @endif
     </div>
 </section>
 
@@ -95,5 +98,18 @@ document.addEventListener('DOMContentLoaded', function() {
         showSlide(0);
     }
 });
+
+function loadMoreGallery() {
+    const hiddenItems = document.querySelectorAll('.gallery-item.d-none');
+    let delay = 0;
+    hiddenItems.forEach(item => {
+        setTimeout(() => {
+            item.classList.remove('d-none');
+            item.classList.add('fade-in-down');
+        }, delay);
+        delay += 100;
+    });
+    document.getElementById('loadMoreGallery').style.display = 'none';
+}
 </script>
 @endsection

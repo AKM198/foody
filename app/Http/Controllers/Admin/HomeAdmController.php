@@ -36,28 +36,40 @@ class HomeAdmController extends Controller
     
     public function update(Request $request)
     {
-        $request->validate([
-            'section' => 'required|string',
-            'title' => 'nullable|string',
-            'content' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-        
-        $section = HomeSection::where('section_name', $request->section)->first();
-        
-        if ($request->filled('title')) $section->title = $request->title;
-        if ($request->filled('content')) $section->content = $request->content;
-        
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $fileName = time() . '_' . $request->section . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('storage/pages'), $fileName);
-            $section->addNewImage('storage/pages/' . $fileName);
+        try {
+            $request->validate([
+                'section' => 'required|string',
+                'title' => 'nullable|string',
+                'content' => 'nullable|string',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ], [
+                'image.max' => 'Ukuran gambar terlalu besar. Maksimal 2MB.',
+                'image.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif.'
+            ]);
+            
+            $section = HomeSection::where('section_name', $request->section)->first();
+            
+            if ($request->filled('title')) $section->title = $request->title;
+            if ($request->filled('content')) $section->content = $request->content;
+            
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $fileName = time() . '_' . $request->section . '.' . $file->getClientOriginalExtension();
+                
+                if (file_exists(public_path('storage/pages/' . $fileName))) {
+                    return redirect()->back()->withErrors(['image' => 'File gambar dengan nama yang sama sudah ada. Silakan coba lagi.'])->withInput();
+                }
+                
+                $file->move(public_path('storage/pages'), $fileName);
+                $section->addNewImage('storage/pages/' . $fileName);
+            }
+            
+            $section->save();
+            
+            return redirect()->route('admin.home.edit')->with('success', 'Home section updated successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()])->withInput();
         }
-        
-        $section->save();
-        
-        return redirect()->route('admin.home.edit')->with('success', 'Home section updated successfully!');
     }
     
     public function switchImage(Request $request)

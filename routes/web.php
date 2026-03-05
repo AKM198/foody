@@ -6,6 +6,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DemoController;
 use App\Http\Controllers\Admin\DashboardAdmController;
 use App\Http\Controllers\Admin\NewsAdmController;
 use App\Http\Controllers\Admin\GalleryAdmController;

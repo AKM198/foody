@@ -35,42 +35,61 @@ class AboutAdmController extends Controller
     
     public function update(Request $request)
     {
-        $request->validate([
-            'section' => 'required|string',
-            'title' => 'nullable|string',
-            'content' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-        
-        $section = AboutSection::where('section_name', $request->section)->first();
-        
-        if ($request->title) $section->title = $request->title;
-        
-        // Only update content for sections other than header and misi
-        if ($request->content && !in_array($request->section, ['header', 'misi'])) {
-            $section->content = $request->content;
+        try {
+            $request->validate([
+                'section' => 'required|string',
+                'title' => 'nullable|string',
+                'content' => 'nullable|string',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ], [
+                'image.max' => 'Ukuran gambar terlalu besar. Maksimal 2MB.',
+                'image.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif.',
+                'image_2.max' => 'Ukuran gambar 2 terlalu besar. Maksimal 2MB.',
+                'image_2.mimes' => 'Format gambar 2 harus jpeg, png, jpg, atau gif.'
+            ]);
+            
+            $section = AboutSection::where('section_name', $request->section)->first();
+            
+            if ($request->title) $section->title = $request->title;
+            
+            // Only update content for sections other than header and misi
+            if ($request->content && !in_array($request->section, ['header', 'misi'])) {
+                $section->content = $request->content;
+            }
+            
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $fileName = time() . '_' . $request->section . '_1.' . $file->getClientOriginalExtension();
+                
+                if (file_exists(public_path('storage/pages/' . $fileName))) {
+                    return redirect()->back()->withErrors(['image' => 'File gambar dengan nama yang sama sudah ada. Silakan coba lagi.'])->withInput();
+                }
+                
+                $file->move(public_path('storage/pages'), $fileName);
+                $section->addNewImage('storage/pages/' . $fileName, 1);
+            }
+            
+            if ($request->hasFile('image_2') && in_array($request->section, ['visi', 'tasty_food'])) {
+                $file = $request->file('image_2');
+                $fileName = time() . '_' . $request->section . '_2.' . $file->getClientOriginalExtension();
+                
+                if (file_exists(public_path('storage/pages/' . $fileName))) {
+                    return redirect()->back()->withErrors(['image_2' => 'File gambar 2 dengan nama yang sama sudah ada. Silakan coba lagi.'])->withInput();
+                }
+                
+                $file->move(public_path('storage/pages'), $fileName);
+                $section->addNewImage('storage/pages/' . $fileName, 2);
+            }
+            
+            if (!$request->hasFile('image') && !$request->hasFile('image_2')) {
+                $section->save();
+            }
+            
+            return redirect()->route('admin.about.edit')->with('success', 'About section updated successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()])->withInput();
         }
-        
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $fileName = time() . '_' . $request->section . '_1.' . $file->getClientOriginalExtension();
-            $file->move(public_path('storage/pages'), $fileName);
-            $section->addNewImage('storage/pages/' . $fileName, 1);
-        }
-        
-        if ($request->hasFile('image_2') && in_array($request->section, ['visi', 'tasty_food'])) {
-            $file = $request->file('image_2');
-            $fileName = time() . '_' . $request->section . '_2.' . $file->getClientOriginalExtension();
-            $file->move(public_path('storage/pages'), $fileName);
-            $section->addNewImage('storage/pages/' . $fileName, 2);
-        }
-        
-        if (!$request->hasFile('image') && !$request->hasFile('image_2')) {
-            $section->save();
-        }
-        
-        return redirect()->route('admin.about.edit')->with('success', 'About section updated successfully!');
     }
     
     public function switchImage(Request $request)

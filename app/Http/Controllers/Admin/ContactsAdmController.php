@@ -54,37 +54,51 @@ class ContactsAdmController extends Controller
     
     public function updateContactSettings(Request $request)
     {
-        $request->validate([
-            'address' => 'required',
-            'phone' => 'required',
-            'email' => 'required|email',
-            'map_url' => 'nullable|url'
-        ]);
-        
-        // Update contact info using different section names
-        PageContent::updateOrCreate(
-            ['page_name' => 'contact', 'section_name' => 'address'],
-            ['content_type' => 'text', 'content_value' => $request->address]
-        );
-        
-        PageContent::updateOrCreate(
-            ['page_name' => 'contact', 'section_name' => 'phone'],
-            ['content_type' => 'text', 'content_value' => $request->phone]
-        );
-        
-        PageContent::updateOrCreate(
-            ['page_name' => 'contact', 'section_name' => 'email'],
-            ['content_type' => 'text', 'content_value' => $request->email]
-        );
-        
-        // Update map URL if provided
-        if ($request->map_url) {
+        try {
+            $request->validate([
+                'address' => 'required',
+                'phone' => 'required',
+                'email' => 'required|email',
+                'map_url' => 'nullable|url'
+            ], [
+                'address.required' => 'Alamat wajib diisi.',
+                'phone.required' => 'Nomor telepon wajib diisi.',
+                'email.required' => 'Email wajib diisi.',
+                'email.email' => 'Format email tidak valid. Contoh: nama@domain.com',
+                'map_url.url' => 'Format URL map tidak valid. Harus dimulai dengan http:// atau https://'
+            ]);
+            
+            // Update contact info using different section names
             PageContent::updateOrCreate(
-                ['page_name' => 'contact', 'section_name' => 'map_url'],
-                ['content_type' => 'url', 'content_value' => $request->map_url]
+                ['page_name' => 'contact', 'section_name' => 'address'],
+                ['content_type' => 'text', 'content_value' => $request->address]
             );
+            
+            PageContent::updateOrCreate(
+                ['page_name' => 'contact', 'section_name' => 'phone'],
+                ['content_type' => 'text', 'content_value' => $request->phone]
+            );
+            
+            PageContent::updateOrCreate(
+                ['page_name' => 'contact', 'section_name' => 'email'],
+                ['content_type' => 'text', 'content_value' => $request->email]
+            );
+            
+            // Update map URL if provided
+            if ($request->map_url) {
+                PageContent::updateOrCreate(
+                    ['page_name' => 'contact', 'section_name' => 'map_url'],
+                    ['content_type' => 'url', 'content_value' => $request->map_url]
+                );
+            }
+            
+            return redirect()->route('admin.contacts.index')->with('success', 'Contact settings updated successfully!');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()->back()->withErrors($e->validator->errors())->withInput();
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->withErrors(['error' => 'Update gagal: Terjadi kesalahan database. ' . $e->getMessage()])->withInput();
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Update gagal: ' . $e->getMessage()])->withInput();
         }
-        
-        return redirect()->route('admin.contacts.index')->with('success', 'Contact settings updated successfully!');
     }
 }

@@ -1,16 +1,167 @@
 /* FOODY MOBILE CSS - Responsive Override for Mobile Devices */
 
-/* ===== DESKTOP STYLES (Default) ===== */
-.navbar-toggler {
-    display: none !important;
+/* ===== TABLET & MOBILE STYLES - HAMBURGER MENU (1200px and below) ===== */
+@media (max-width: 1200px) {
+    /* ===== NAVIGATION - HAMBURGER MENU ===== */
+    #mainNavbar {
+        padding: 15px 0 !important;
+        background: #000 !important;
+    }
+
+    body.home-page #mainNavbar .navbar-logo {
+        content: url('../images/foodylogodrk.png') !important;
+    }
+
+    .navbar-logo {
+        content: url('../images/foodylogodrk.png') !important;
+    }
+
+    .navbar-brand .brand-title {
+        font-size: 1.5rem !important;
+        color: #fff !important;
+    }
+
+    /* Hamburger Button - Enhanced Styling */
+    .navbar-toggler {
+        display: block !important;
+        border: 2px solid #fff !important;
+        padding: 10px 12px !important;
+        background: transparent !important;
+        transition: all 0.3s ease !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        border-radius: 5px !important;
+        cursor: pointer !important;
+    }
+
+    .navbar-toggler:hover {
+        background: rgba(255, 255, 255, 0.15) !important;
+        transform: scale(1.05) !important;
+        border-color: #fff !important;
+    }
+
+    .navbar-toggler:focus {
+        box-shadow: 0 0 0 0.2rem rgba(255,255,255,0.3) !important;
+        outline: none !important;
+    }
+
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+        width: 22px !important;
+        height: 22px !important;
+    }
+
+    /* Navbar Collapse - Smooth Animation */
+    .navbar-collapse {
+        background: #0a0a0a !important;
+        position: absolute !important;
+        top: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 0 !important;
+        max-height: 0 !important;
+        overflow: hidden !important;
+        z-index: 1050 !important;
+        padding: 0 25px !important;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.4) !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+        display: block !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+
+    /* Smooth Opening Animation */
+    .navbar-collapse.show {
+        height: auto !important;
+        max-height: none !important;
+        padding: 15px 25px 25px 25px !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        animation: slideDown 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards !important;
+    }
+
+    .navbar-collapse.collapsing {
+        height: 0 !important;
+        overflow: hidden !important;
+        opacity: 0 !important;
+        transition: height 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    }
+
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Navbar Items - Enhanced Styling */
+    .navbar-nav {
+        flex-direction: column !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .navbar-nav .nav-link {
+        padding: 14px 10px !important;
+        margin: 0 !important;
+        width: 100% !important;
+        text-align: left !important;
+        color: rgba(255, 255, 255, 0.7) !important;
+        transition: color 0.3s ease, padding-left 0.3s ease !important;
+        position: relative;
+        font-size: 1rem !important;
+        font-weight: 500 !important;
+        letter-spacing: 1px !important;
+        display: block !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+        background: transparent !important;
+    }
+
+    /* Hover Effect - Only Text Color Changes */
+    .navbar-nav .nav-link:hover {
+        color: #fff !important;
+        padding-left: 20px !important;
+        background: transparent !important;
+    }
+
+    /* Active State - Show line only on current page */
+    .navbar-nav .nav-link.active {
+        color: #fff !important;
+        background: transparent !important;
+        font-weight: 600 !important;
+    }
+
+    .navbar-nav .nav-link.active::after {
+        content: '';
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        height: 2px;
+        background: #fff;
+        border-radius: 1px;
+    }
+
+    .navbar-nav .nav-item {
+        width: 100% !important;
+        display: block !important;
+        border-bottom: 1px solid #fff !important;
+    }
+
+    .navbar-nav .nav-item:last-child {
+        border-bottom: none !important;
+    }
 }
 
-.navbar-collapse {
-    display: flex !important;
-}
-
-/* ===== MOBILE STYLES - HAMBURGER MENU (700px and below) ===== */
-@media (max-width: 700px) {
+/* ===== MOBILE STYLES - ADDITIONAL (600px and below) ===== */
+@media (max-width: 600px) {
     /* ===== GLOBAL MOBILE STYLES ===== */
     html {
         font-size: 14px;
@@ -60,118 +211,6 @@
     img {
         max-width: 100%;
         height: auto;
-    }
-
-    /* ===== NAVIGATION - HAMBURGER MENU ===== */
-    #mainNavbar {
-        padding: 15px 0 !important;
-        background: #000 !important;
-    }
-
-    body.home-page #mainNavbar .navbar-logo {
-        content: url('../images/foodylogodrk.png') !important;
-    }
-
-    .navbar-logo {
-        content: url('../images/foodylogodrk.png') !important;
-    }
-
-    .navbar-brand .brand-title {
-        font-size: 1.5rem !important;
-        color: #fff !important;
-    }
-
-    .navbar-toggler {
-        display: block !important;
-        border: 2px solid #fff !important;
-        padding: 8px 12px !important;
-        background: #000 !important;
-        transition: all 0.3s ease !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-    }
-
-    .navbar-toggler:hover {
-        background: #333 !important;
-        transform: scale(1.05) !important;
-    }
-
-    .navbar-toggler:focus {
-        box-shadow: 0 0 0 0.2rem rgba(255,255,255,0.3) !important;
-    }
-
-    .navbar-toggler-icon {
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
-    }
-
-    .navbar-collapse {
-        background: #000 !important;
-        position: absolute !important;
-        top: 100% !important;
-        left: 0 !important;
-        right: 0 !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        height: auto !important;
-        z-index: 1050 !important;
-        padding: 10px 20px !important;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3) !important;
-        display: none !important;
-        animation: slideDown 0.3s ease !important;
-    }
-
-    @keyframes slideDown {
-        from {
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .navbar-collapse.show {
-        display: block !important;
-    }
-
-    .navbar-nav {
-        flex-direction: column !important;
-        width: 100% !important;
-    }
-
-    .navbar-nav .nav-link {
-        padding: 15px 0 !important;
-        margin: 0 !important;
-        width: 100% !important;
-        text-align: left !important;
-        color: #fff !important;
-        transition: all 0.3s ease !important;
-        position: relative;
-        font-size: 1rem !important;
-        font-weight: 500 !important;
-        letter-spacing: 0.5px !important;
-        display: block !important;
-        border-bottom: none !important;
-    }
-
-    .navbar-nav .nav-link:hover {
-        background: transparent !important;
-        opacity: 0.7;
-    }
-
-    .navbar-nav .nav-link.active {
-        border-bottom: 2px solid #fff !important;
-    }
-
-    .navbar-nav .nav-item {
-        width: 100% !important;
-        display: block !important;
-        border-bottom: 1px solid #fff !important;
-    }
-
-    .navbar-nav .nav-item:last-child {
-        border-bottom: none !important;
     }
 
     /* ===== HOME PAGE ===== */
@@ -472,7 +511,7 @@
     }
 
     .product-card {
-        height: 100px !important;
+        height: 150px !important;
         width: 100% !important;
     }
 
@@ -719,14 +758,16 @@
     }
 }
 
-/* ===== FOR SCREENS ABOVE 700px ===== */
-@media (min-width: 701px) {
+/* ===== FOR SCREENS ABOVE 1200px ===== */
+@media (min-width: 1201px) {
     .navbar-toggler {
         display: none !important;
     }
     
     .navbar-collapse {
         display: flex !important;
+        position: static !important;
+        background: transparent !important;
     }
     
     .navbar-nav {

@@ -42,6 +42,7 @@
                 
                 <!-- Content -->
                 <div class="admin-content">
+                    @include('admin.partials.alerts')
                     @yield('content')
                 </div>
             </div>

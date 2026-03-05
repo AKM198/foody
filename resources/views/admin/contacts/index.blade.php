@@ -11,7 +11,7 @@
 @endif
 
 <div class="mb-3">
-    <h4>Dashbord</h4>
+    <h4>Table Contacts</h4>
 </div>
 
 <div class="table-responsive">

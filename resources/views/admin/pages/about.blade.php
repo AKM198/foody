@@ -43,14 +43,14 @@
                     </div>
                     
                     <div class="col-md-6">
-                        <div class="image-section">
-                            <!-- First Image -->
-                            <div class="current-image mb-3">
+                        <!-- First Image -->
+                        <div class="image-section-wrapper">
+                            <div class="current-image">
                                 <label>Current Image 1</label>
                                 <img id="current_{{ $key }}_1" src="{{ asset($section->current_img) }}" class="current-img img-fluid">
                             </div>
                             
-                            <div class="previous-images mb-3">
+                            <div class="previous-images">
                                 <label>Previous Images 1 (Click to switch)</label>
                                 <div class="prev-grid">
                                     @foreach($section->getPreviousImages(1) as $index => $prevImg)
@@ -58,17 +58,19 @@
                                     @endforeach
                                 </div>
                             </div>
-                            
-                            <input type="file" class="form-control mb-3" name="image" accept="image/*" onchange="previewImage(this, '{{ $key }}', 1)">
-                            
-                            @if($key === 'visi' || $key === 'tasty_food')
-                            <!-- Second Image -->
-                            <div class="current-image mb-3">
+                        </div>
+                        
+                        <input type="file" class="form-control mt-3 mb-3" name="image" accept="image/*" onchange="previewImage(this, '{{ $key }}', 1)">
+                        
+                        @if($key === 'visi' || $key === 'tasty_food')
+                        <!-- Second Image -->
+                        <div class="image-section-wrapper">
+                            <div class="current-image">
                                 <label>Current Image 2</label>
                                 <img id="current_{{ $key }}_2" src="{{ asset($section->current_img_2 ?? 'assets/images/placeholder.png') }}" class="current-img img-fluid">
                             </div>
                             
-                            <div class="previous-images mb-3">
+                            <div class="previous-images">
                                 <label>Previous Images 2 (Click to switch)</label>
                                 <div class="prev-grid">
                                     @foreach($section->getPreviousImages(2) as $index => $prevImg)
@@ -76,10 +78,10 @@
                                     @endforeach
                                 </div>
                             </div>
-                            
-                            <input type="file" class="form-control" name="image_2" accept="image/*" onchange="previewImage(this, '{{ $key }}', 2)">
-                            @endif
                         </div>
+                        
+                        <input type="file" class="form-control mt-3" name="image_2" accept="image/*" onchange="previewImage(this, '{{ $key }}', 2)">
+                        @endif
                     </div>
                 </div>
                 
@@ -91,10 +93,32 @@
 </div>
 
 <style>
+.image-section-wrapper {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+    align-items: flex-start;
+}
+
+.current-image {
+    flex: 0 0 auto;
+}
+
+.previous-images {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.current-image label, .previous-images label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
 .current-img {
-    width: 100%;
-    max-width: 200px;
-    height: 120px;
+    width: 200px;
+    height: 150px;
     object-fit: cover;
     border-radius: 8px;
     border: 2px solid #007bff;
@@ -102,14 +126,14 @@
 
 .prev-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-    gap: 5px;
-    max-width: 200px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    width: 200px;
 }
 
 .prev-img {
     width: 100%;
-    height: 60px;
+    height: 70px;
     object-fit: cover;
     border-radius: 4px;
     border: 1px solid #ccc;
@@ -123,17 +147,41 @@
 }
 
 @media (max-width: 768px) {
-    .current-img {
-        max-width: 150px;
-        height: 90px;
+    .image-section-wrapper {
+        gap: 15px;
     }
     
-    .prev-img {
-        height: 45px;
+    .current-img {
+        width: 180px;
+        height: 130px;
     }
     
     .prev-grid {
-        max-width: 150px;
+        width: 180px;
+    }
+    
+    .prev-img {
+        height: 60px;
+    }
+}
+
+@media (max-width: 500px) {
+    .image-section-wrapper {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .current-img {
+        width: 160px;
+        height: 120px;
+    }
+    
+    .prev-grid {
+        width: 160px;
+    }
+    
+    .prev-img {
+        height: 55px;
     }
 }
 </style>

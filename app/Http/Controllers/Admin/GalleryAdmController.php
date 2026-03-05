@@ -27,24 +27,49 @@ class GalleryAdmController extends Controller
                 'description' => 'nullable',
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
             ], [
+                'name.required' => 'Nama galeri wajib diisi.',
+                'name.max' => 'Nama galeri maksimal 255 karakter.',
                 'name.unique' => 'Nama galeri sudah ada di database.',
+                'image.required' => 'Gambar wajib diupload.',
+                'image.image' => 'File harus berupa gambar.',
                 'image.max' => 'Ukuran gambar terlalu besar. Maksimal 2MB.',
-                'image.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif.',
-                'image.required' => 'Gambar wajib diupload.'
+                'image.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif.'
             ]);
             
             if ($request->hasFile('image')) {
-                $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+                $file = $request->file('image');
                 
-                // Check if file already exists
-                if (file_exists(public_path('storage/gallery/' . $imageName))) {
+                if (!$file->isValid()) {
                     if ($request->ajax()) {
-                        return response()->json(['success' => false, 'message' => 'File gambar dengan nama yang sama sudah ada.']);
+                        return response()->json(['success' => false, 'message' => 'File gambar tidak valid atau corrupt.']);
                     }
-                    return redirect()->back()->withErrors(['image' => 'File gambar dengan nama yang sama sudah ada.'])->withInput();
+                    return redirect()->back()->withErrors(['image' => 'File gambar tidak valid atau corrupt.'])->withInput();
                 }
                 
-                $request->file('image')->move(public_path('storage/gallery'), $imageName);
+                $imageName = time() . '_' . $file->getClientOriginalName();
+                
+                if (file_exists(public_path('storage/gallery/' . $imageName))) {
+                    if ($request->ajax()) {
+                        return response()->json(['success' => false, 'message' => 'File gambar dengan nama yang sama sudah ada. Silakan rename file atau coba lagi.']);
+                    }
+                    return redirect()->back()->withErrors(['image' => 'File gambar dengan nama yang sama sudah ada. Silakan rename file atau coba lagi.'])->withInput();
+                }
+                
+                if (!is_dir(public_path('storage/gallery'))) {
+                    if ($request->ajax()) {
+                        return response()->json(['success' => false, 'message' => 'Folder storage/gallery tidak ditemukan. Hubungi administrator.']);
+                    }
+                    return redirect()->back()->withErrors(['image' => 'Folder storage/gallery tidak ditemukan. Hubungi administrator.'])->withInput();
+                }
+                
+                $moved = $file->move(public_path('storage/gallery'), $imageName);
+                
+                if (!$moved) {
+                    if ($request->ajax()) {
+                        return response()->json(['success' => false, 'message' => 'Gagal menyimpan gambar. Periksa permission folder.']);
+                    }
+                    return redirect()->back()->withErrors(['image' => 'Gagal menyimpan gambar. Periksa permission folder.'])->withInput();
+                }
                 
                 Product::create([
                     'name' => $request->name,
@@ -59,17 +84,22 @@ class GalleryAdmController extends Controller
                 }
                 return redirect()->route('admin.gallery.index')->with('success', 'Galeri berhasil ditambahkan!');
             }
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            if ($request->ajax()) {
+                return response()->json(['success' => false, 'message' => 'Validasi gagal: ' . implode(' ', $e->validator->errors()->all())]);
+            }
+            throw $e;
         } catch (\Exception $e) {
             if ($request->ajax()) {
-                return response()->json(['success' => false, 'message' => 'Terjadi kesalahan: ' . $e->getMessage()]);
+                return response()->json(['success' => false, 'message' => 'Tambah data gagal: ' . $e->getMessage()]);
             }
-            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()])->withInput();
+            return redirect()->back()->withErrors(['error' => 'Tambah data gagal: ' . $e->getMessage()])->withInput();
         }
         
         if ($request->ajax()) {
-            return response()->json(['success' => false, 'message' => 'Gagal mengupload gambar.']);
+            return response()->json(['success' => false, 'message' => 'Gagal mengupload gambar. File tidak ditemukan.']);
         }
-        return redirect()->back()->withErrors(['image' => 'Gagal mengupload gambar.'])->withInput();
+        return redirect()->back()->withErrors(['image' => 'Gagal mengupload gambar. File tidak ditemukan.'])->withInput();
     }
     
     public function edit(Product $gallery)
@@ -85,7 +115,10 @@ class GalleryAdmController extends Controller
                 'description' => 'nullable',
                 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
             ], [
+                'name.required' => 'Nama galeri wajib diisi.',
+                'name.max' => 'Nama galeri maksimal 255 karakter.',
                 'name.unique' => 'Nama galeri sudah ada di database.',
+                'image.image' => 'File harus berupa gambar.',
                 'image.max' => 'Ukuran gambar terlalu besar. Maksimal 2MB.',
                 'image.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif.'
             ]);
@@ -96,17 +129,40 @@ class GalleryAdmController extends Controller
             ];
             
             if ($request->hasFile('image')) {
-                $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+                $file = $request->file('image');
                 
-                // Check if file already exists
-                if (file_exists(public_path('storage/gallery/' . $imageName))) {
+                if (!$file->isValid()) {
                     if ($request->ajax()) {
-                        return response()->json(['success' => false, 'message' => 'File gambar dengan nama yang sama sudah ada.']);
+                        return response()->json(['success' => false, 'message' => 'File gambar tidak valid atau corrupt.']);
                     }
-                    return redirect()->back()->withErrors(['image' => 'File gambar dengan nama yang sama sudah ada.'])->withInput();
+                    return redirect()->back()->withErrors(['image' => 'File gambar tidak valid atau corrupt.'])->withInput();
                 }
                 
-                $request->file('image')->move(public_path('storage/gallery'), $imageName);
+                $imageName = time() . '_' . $file->getClientOriginalName();
+                
+                if (file_exists(public_path('storage/gallery/' . $imageName))) {
+                    if ($request->ajax()) {
+                        return response()->json(['success' => false, 'message' => 'File gambar dengan nama yang sama sudah ada. Silakan rename file atau coba lagi.']);
+                    }
+                    return redirect()->back()->withErrors(['image' => 'File gambar dengan nama yang sama sudah ada. Silakan rename file atau coba lagi.'])->withInput();
+                }
+                
+                if (!is_dir(public_path('storage/gallery'))) {
+                    if ($request->ajax()) {
+                        return response()->json(['success' => false, 'message' => 'Folder storage/gallery tidak ditemukan. Hubungi administrator.']);
+                    }
+                    return redirect()->back()->withErrors(['image' => 'Folder storage/gallery tidak ditemukan. Hubungi administrator.'])->withInput();
+                }
+                
+                $moved = $file->move(public_path('storage/gallery'), $imageName);
+                
+                if (!$moved) {
+                    if ($request->ajax()) {
+                        return response()->json(['success' => false, 'message' => 'Gagal menyimpan gambar. Periksa permission folder.']);
+                    }
+                    return redirect()->back()->withErrors(['image' => 'Gagal menyimpan gambar. Periksa permission folder.'])->withInput();
+                }
+                
                 $data['image_path'] = 'storage/gallery/' . $imageName;
             }
             
@@ -116,11 +172,16 @@ class GalleryAdmController extends Controller
                 return response()->json(['success' => true, 'message' => 'Galeri berhasil diupdate!']);
             }
             return redirect()->route('admin.gallery.index')->with('success', 'Galeri berhasil diupdate!');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            if ($request->ajax()) {
+                return response()->json(['success' => false, 'message' => 'Validasi gagal: ' . implode(' ', $e->validator->errors()->all())]);
+            }
+            throw $e;
         } catch (\Exception $e) {
             if ($request->ajax()) {
-                return response()->json(['success' => false, 'message' => 'Terjadi kesalahan: ' . $e->getMessage()]);
+                return response()->json(['success' => false, 'message' => 'Update gagal: ' . $e->getMessage()]);
             }
-            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()])->withInput();
+            return redirect()->back()->withErrors(['error' => 'Update gagal: ' . $e->getMessage()])->withInput();
         }
     }
     
