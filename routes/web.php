@@ -7,6 +7,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DemoController;
+use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardAdmController;
 use App\Http\Controllers\Admin\NewsAdmController;
 use App\Http\Controllers\Admin\GalleryAdmController;
@@ -24,24 +25,19 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact.index
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::put('/contact/settings', [ContactController::class, 'updateSettings'])->name('contact.settings.update');
 
-// API Routes
-Route::get('/api/search', function(\Illuminate\Http\Request $request) {
-    $query = $request->get('q');
-    
-    if (empty($query)) {
-        return response()->json([]);
-    }
-    
-    // Search products by name containing the query
-    $products = \App\Models\Product::where('name', 'LIKE', '%' . $query . '%')
-        ->limit(10)
-        ->get(['id', 'name', 'price', 'image_path']);
-    
-    return response()->json($products);
+// Login route alias (for backward compatibility)
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+
+// Admin Login Routes (public)
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [AuthController::class, 'login'])->name('login.post');
 });
 
-// Admin Routes (Simple - no authentication for demo)
-Route::prefix('admin')->name('admin.')->group(function () {
+// Protected Admin Routes
+Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function () {
+    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/', [DashboardAdmController::class, 'index'])->name('index');
     Route::get('/dashboard', [DashboardAdmController::class, 'index'])->name('dashboard');
     

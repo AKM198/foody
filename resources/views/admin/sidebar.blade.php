@@ -27,6 +27,12 @@
         </a>
         
         <hr class="admin-divider">
+        <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+        <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <i class="fas fa-sign-out-alt me-2"></i> Logout
+        </a>
         <a class="nav-link" href="{{ route('welcome') }}">
             <i class="fas fa-external-link-alt me-2"></i> Kembali ke Website
         </a>
