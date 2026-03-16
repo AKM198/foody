@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\GalleryAdmController;
 use App\Http\Controllers\Admin\ContactsAdmController;
 use App\Http\Controllers\Admin\HomeAdmController;
 use App\Http\Controllers\Admin\AboutAdmController;
+use App\Http\Controllers\Admin\ImageController;
 
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -71,4 +72,8 @@ Route::prefix('admin')->name('admin.')->middleware('auth:admin')->group(function
     Route::get('/about', [AboutAdmController::class, 'edit'])->name('about.edit');
     Route::put('/about', [AboutAdmController::class, 'update'])->name('about.update');
     Route::post('/about/switch-image', [AboutAdmController::class, 'switchImage'])->name('about.switch-image');
+    
+    // Image API Routes (for selectors)
+    Route::get('/images-selector', [ImageController::class, 'selector'])->name('images.selector');
+    Route::post('/images-upload', [ImageController::class, 'uploadApi'])->name('images.upload');
 });

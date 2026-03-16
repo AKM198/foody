@@ -25,15 +25,14 @@ class GalleryAdmController extends Controller
             $request->validate([
                 'name' => 'required|max:255|unique:products,name',
                 'description' => 'nullable',
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+                'image' => 'required|image|max:2048'
             ], [
                 'name.required' => 'Nama galeri wajib diisi.',
                 'name.max' => 'Nama galeri maksimal 255 karakter.',
                 'name.unique' => 'Nama galeri sudah ada di database.',
                 'image.required' => 'Gambar wajib diupload.',
                 'image.image' => 'File harus berupa gambar.',
-                'image.max' => 'Ukuran gambar terlalu besar. Maksimal 2MB.',
-                'image.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif.'
+                'image.max' => 'Ukuran gambar terlalu besar. Maksimal 2MB.'
             ]);
             
             if ($request->hasFile('image')) {
@@ -113,14 +112,13 @@ class GalleryAdmController extends Controller
             $request->validate([
                 'name' => 'required|max:255|unique:products,name,' . $gallery->id,
                 'description' => 'nullable',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+                'image' => 'nullable|image|max:2048'
             ], [
                 'name.required' => 'Nama galeri wajib diisi.',
                 'name.max' => 'Nama galeri maksimal 255 karakter.',
                 'name.unique' => 'Nama galeri sudah ada di database.',
                 'image.image' => 'File harus berupa gambar.',
-                'image.max' => 'Ukuran gambar terlalu besar. Maksimal 2MB.',
-                'image.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif.'
+                'image.max' => 'Ukuran gambar terlalu besar. Maksimal 2MB.'
             ]);
             
             $data = [

@@ -40,13 +40,11 @@ class AboutAdmController extends Controller
                 'section' => 'required|string',
                 'title' => 'nullable|string',
                 'content' => 'nullable|string',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'image_2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'image' => 'nullable|image|max:2048',
+                'image_2' => 'nullable|image|max:2048',
             ], [
                 'image.max' => 'Ukuran gambar terlalu besar. Maksimal 2MB.',
-                'image.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif.',
-                'image_2.max' => 'Ukuran gambar 2 terlalu besar. Maksimal 2MB.',
-                'image_2.mimes' => 'Format gambar 2 harus jpeg, png, jpg, atau gif.'
+                'image_2.max' => 'Ukuran gambar 2 terlalu besar. Maksimal 2MB.'
             ]);
             
             $section = AboutSection::where('section_name', $request->section)->first();

@@ -41,10 +41,9 @@ class HomeAdmController extends Controller
                 'section' => 'required|string',
                 'title' => 'nullable|string',
                 'content' => 'nullable|string',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'image' => 'nullable|image|max:2048',
             ], [
-                'image.max' => 'Ukuran gambar terlalu besar. Maksimal 2MB.',
-                'image.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif.'
+                'image.max' => 'Ukuran gambar terlalu besar. Maksimal 2MB.'
             ]);
             
             $section = HomeSection::where('section_name', $request->section)->first();

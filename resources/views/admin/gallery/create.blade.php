@@ -19,13 +19,15 @@
         <textarea class="form-control" id="description" name="description" rows="3">{{ old('description') }}</textarea>
     </div>
     
-    <div class="form-group mb-3">
-        <label for="image">Gambar</label>
-        <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image" accept="image/*" required>
-        @error('image')
-            <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
-    </div>
+    @include('admin.partials.image-picker', [
+        'label' => 'Gambar',
+        'category' => 'gallery',
+        'inputName' => 'image',
+        'inputId' => 'image',
+        'hiddenName' => 'selected_image_id',
+        'hiddenId' => 'selected_image_id',
+        'required' => true
+    ])
     
     <button type="submit" class="btn btn-primary">Simpan</button>
     <a href="{{ route('admin.gallery.index') }}" class="btn btn-secondary">Kembali</a>

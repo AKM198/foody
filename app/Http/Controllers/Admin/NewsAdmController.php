@@ -25,11 +25,10 @@ class NewsAdmController extends Controller
             $request->validate([
                 'title' => 'required|max:255|unique:news,title',
                 'content' => 'required',
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+                'image' => 'required|image|max:2048'
             ], [
                 'title.unique' => 'Judul berita sudah ada di database.',
                 'image.max' => 'Ukuran gambar terlalu besar. Maksimal 2MB.',
-                'image.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif.',
                 'image.required' => 'Gambar wajib diupload.'
             ]);
             
@@ -80,11 +79,10 @@ class NewsAdmController extends Controller
             $request->validate([
                 'title' => 'required|max:255|unique:news,title,' . $news->id,
                 'content' => 'required',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+                'image' => 'nullable|image|max:2048'
             ], [
                 'title.unique' => 'Judul berita sudah ada di database.',
-                'image.max' => 'Ukuran gambar terlalu besar. Maksimal 2MB.',
-                'image.mimes' => 'Format gambar harus jpeg, png, jpg, atau gif.'
+                'image.max' => 'Ukuran gambar terlalu besar. Maksimal 2MB.'
             ]);
             
             $data = [

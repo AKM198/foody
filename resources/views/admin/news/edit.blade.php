@@ -15,19 +15,16 @@
         @enderror
     </div>
     
-    <div class="form-group mb-3">
-        <label for="image">Gambar</label>
-        @if($news->image_path)
-            <div class="mb-2">
-                <img src="{{ asset($news->image_path) }}" alt="Current" style="max-width: 200px; height: auto;">
-            </div>
-        @endif
-        <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image" accept="image/*">
-        <small class="text-muted">Kosongkan jika tidak ingin mengubah gambar</small>
-        @error('image')
-            <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
-    </div>
+    @include('admin.partials.image-picker', [
+        'label' => 'Gambar',
+        'category' => 'news',
+        'inputName' => 'image',
+        'inputId' => 'image',
+        'hiddenName' => 'selected_image_id',
+        'hiddenId' => 'selected_image_id',
+        'currentImage' => $news->image_url,
+        'required' => false
+    ])
     
     <div class="form-group mb-3">
         <label for="content">Konten</label>

@@ -20,19 +20,16 @@
         <textarea class="form-control" id="description" name="description" rows="3">{{ old('description', $gallery->description) }}</textarea>
     </div>
     
-    <div class="form-group mb-3">
-        <label for="image">Gambar</label>
-        @if($gallery->image_path)
-            <div class="mb-2">
-                <img src="{{ asset($gallery->image_path) }}" alt="Current" style="max-width: 200px; height: auto;">
-            </div>
-        @endif
-        <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image" accept="image/*">
-        <small class="text-muted">Kosongkan jika tidak ingin mengubah gambar</small>
-        @error('image')
-            <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
-    </div>
+    @include('admin.partials.image-picker', [
+        'label' => 'Gambar',
+        'category' => 'gallery',
+        'inputName' => 'image',
+        'inputId' => 'image',
+        'hiddenName' => 'selected_image_id',
+        'hiddenId' => 'selected_image_id',
+        'currentImage' => $gallery->image_url,
+        'required' => false
+    ])
     
     <button type="submit" class="btn btn-primary">Update</button>
     <a href="{{ route('admin.gallery.index') }}" class="btn btn-secondary">Kembali</a>

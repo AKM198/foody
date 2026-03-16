@@ -14,13 +14,15 @@
         @enderror
     </div>
     
-    <div class="form-group mb-3">
-        <label for="image">Gambar</label>
-        <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image" accept="image/*" required>
-        @error('image')
-            <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
-    </div>
+    @include('admin.partials.image-picker', [
+        'label' => 'Gambar',
+        'category' => 'news',
+        'inputName' => 'image',
+        'inputId' => 'image',
+        'hiddenName' => 'selected_image_id',
+        'hiddenId' => 'selected_image_id',
+        'required' => true
+    ])
     
     <div class="form-group mb-3">
         <label for="content">Konten</label>
