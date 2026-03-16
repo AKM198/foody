@@ -468,8 +468,6 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
 
 .menu-content {
     padding: 15px 30px 0 30px;
-    overflow: hidden;
-    height: 100%;
 }
 
 .menu-title {
@@ -622,7 +620,7 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
 }
 
 .gallery-col {
-    padding: 5px;
+    padding: 0 5px;
     margin-bottom: 10px;
 }
 
@@ -1257,6 +1255,22 @@ body.home-page #mainNavbar.scrolled .navbar-nav .nav-link {
 .btn-load-more:hover {
     background: #333;
     color: #fff;
+}
+
+/* Fade In Down Animation */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-down {
+    animation: fadeInDown 0.5s ease forwards;
 }
 
 /* Gallery Page Styles */

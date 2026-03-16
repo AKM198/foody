@@ -34,12 +34,6 @@
                                 <h2 class="admin-page-title">@yield('page-title', 'Dashboard')</h2>
                             </div>
                             <div class="col-auto">
-                                @auth('admin')
-                                    <span class="me-3">
-                                        <i class="fas fa-user-circle"></i> 
-                                        {{ auth('admin')->user()->name }}
-                                    </span>
-                                @endauth
                                 <span class="admin-date">{{ date('d F Y') }}</span>
                             </div>
                         </div>
