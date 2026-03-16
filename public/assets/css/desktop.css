@@ -1,0 +1,259 @@
+/* ==========================================================================
+   DESKTOP RESPONSIVE CSS - FOODY
+   ========================================================================== */
+
+/* Tablet Styles (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    /* Container */
+    .container-fluid {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+    
+    /* Navigation */
+    #mainNavbar {
+        padding: 20px 0;
+    }
+    
+    .navbar-nav .nav-link {
+        margin: 0 10px;
+        font-size: 0.95rem;
+    }
+    
+    /* Hero Section */
+    .hero-section {
+        padding: 120px 0 80px 0;
+    }
+    
+    .hero-content {
+        padding-left: 40px;
+    }
+    
+    .hero-image-top-right {
+        top: -100px;
+        right: -150px;
+    }
+    
+    .hero-image-circle {
+        width: 500px;
+        height: 500px;
+    }
+    
+    /* Menu Cards - 2 columns */
+    .menu-card-col {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+    
+    /* News Cards - 2 columns */
+    .news-col {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+    
+    .news-card.large-card {
+        height: 600px;
+    }
+    
+    .news-card.large-card .news-image {
+        height: 300px;
+    }
+    
+    .news-card.small-card {
+        height: 400px;
+    }
+    
+    /* Gallery Grid - 3 columns */
+    .gallery-col {
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+        padding: 0 2.5px;
+        margin-bottom: 5px;
+    }
+    
+    .gallery-image {
+        height: 250px;
+    }
+    
+    /* About Images */
+    .about-images-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .about-images-grid .about-img {
+        height: 300px;
+    }
+    
+    /* Footer */
+    .footer-section .col-md-4 {
+        flex: 0 0 50%;
+        max-width: 50%;
+        margin-bottom: 30px;
+    }
+    
+    .footer-section .col-md-2 {
+        flex: 0 0 50%;
+        max-width: 50%;
+        margin-bottom: 30px;
+    }
+    
+    .footer-links {
+        padding-left: 40px !important;
+    }
+    
+    .footer-contact {
+        padding-left: 20px !important;
+    }
+    
+    /* Contact Form */
+    .contact-form-section {
+        flex: 0 0 60%;
+        max-width: 60%;
+    }
+    
+    .contact-map-section {
+        flex: 0 0 40%;
+        max-width: 40%;
+    }
+    
+    .contact-info-cards {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Desktop Styles (min-width: 1024px) */
+@media (min-width: 1024px) {
+    /* Container */
+    .container-fluid {
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+    
+    /* Navigation */
+    #mainNavbar {
+        padding: 25px 0;
+    }
+    
+    .navbar-nav .nav-link {
+        margin: 0 15px;
+        font-size: 1rem;
+    }
+    
+    /* Hero Section */
+    .hero-section {
+        padding: 0 0 60px 0;
+        min-height: 120vh;
+    }
+    
+    .hero-content {
+        padding-left: 100px;
+        z-index: 2;
+        position: relative;
+    }
+    
+    .hero-image-top-right {
+        position: absolute;
+        top: -170px;
+        right: -210px;
+        z-index: 1;
+    }
+    
+    .hero-image-circle {
+        width: 860px;
+        height: 920px;
+        border-radius: 50%;
+        overflow: hidden;
+        background: #f5f5f5;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border: 3px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    /* Menu Cards - 4 columns */
+    .menu-card-col {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+    
+    /* News Cards - 3 columns with featured */
+    .news-col.col-lg-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+    
+    .news-col.col-lg-3 {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+    
+    /* Gallery Grid - 3 columns */
+    .gallery-col {
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+        padding: 0 2.5px;
+        margin-bottom: 5px;
+    }
+    
+    .gallery-image {
+        height: 300px;
+    }
+    
+    /* About Images */
+    .about-images-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .about-images-grid .about-img {
+        height: 380px;
+    }
+    
+    /* Footer */
+    .footer-section .col-md-4,
+    .footer-section .col-md-2 {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .footer-links {
+        padding-left: 80px;
+    }
+    
+    .footer-contact {
+        padding-left: 30px;
+    }
+    
+    /* Contact Form */
+    .contact-form-section {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+    
+    .contact-map-section {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+    
+    .contact-info-cards {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    
+    /* About Header */
+    .about-header-title {
+        text-align: left;
+    }
+    
+    .about-section-title {
+        text-align: left;
+    }
+}
+
+/* Large Desktop (min-width: 1440px) */
+@media (min-width: 1440px) {
+    .menu-cards-row {
+        margin: 0 -20px;
+    }
+    
+    .menu-card-col {
+        padding: 0 20px;
+    }
+}
